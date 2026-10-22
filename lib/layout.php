@@ -22,6 +22,7 @@ function layout_head($title, $active) {
 <div class="shell">
   <aside class="sidebar" id="sidebar">
     <div class="brand"><i class="fa-solid fa-tower-broadcast"></i> SMMSOFT</div>
+    <button class="side-close" id="navClose" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
     <nav>
       <div class="nav-label">Messaging</div>
       <?= $nav('dashboard.php', 'dashboard', 'fa-gauge-high', 'Dashboard') ?>
