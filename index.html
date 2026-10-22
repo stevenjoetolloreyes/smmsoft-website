@@ -3,74 +3,171 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMMSOFT — SMS for Philippine Businesses</title>
-<meta name="description" content="SMMSOFT lets Philippine businesses send bulk SMS, priority messages and OTP from one dashboard or a simple API. Sender name: SMMSOFT. Credits from ₱0.65.">
+<title>SMMSOFT — SMS for Philippine Businesses: Bulk & OTP from ₱0.65</title>
+<meta name="description" content="SMMSOFT sends bulk SMS, priority messages and OTPs to Globe, Smart, DITO, Sun and TNT from one dashboard or a simple API. Sender name: SMMSOFT. Credits from ₱0.65.">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <header class="site"><div class="wrap nav">
   <a class="brand" href="index.html"><i class="fa-solid fa-tower-broadcast"></i> SMMSOFT</a>
+  <span class="brandsub">PH SMS platform for businesses · Globe · Smart · DITO · Sun · TNT</span>
   <button id="navToggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
   <nav class="links" id="navLinks">
     <a href="index.html" class="on">Home</a>
     <a href="pricing.html">Pricing</a>
     <a href="api.html">API Docs</a>
+    <a href="#faq">FAQ</a>
+    <a class="btn small" href="pricing.html"><i class="fa-solid fa-rocket"></i> Get started</a>
   </nav>
 </div></header>
 
 <main class="wrap">
-  <section class="hero">
-    <span class="tag"><i class="fa-solid fa-coins"></i> Credits from ₱0.65</span>
-    <h1>Send SMS to any Philippine number — from one simple dashboard.</h1>
-    <p>Bulk messages, priority delivery, and one-time passwords, with a developer API your apps can call.
-       Your recipients see one sender name: <b style="color:#fff">SMMSOFT</b>.</p>
-    <div class="rowflex">
-      <a class="btn" href="pricing.html"><i class="fa-solid fa-tags"></i> See pricing</a>
-      <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> Read the API docs</a>
+  <section class="hero2">
+    <div class="hero-copy">
+      <span class="tag"><i class="fa-solid fa-coins"></i> Credits from ₱0.65 · No monthly fees</span>
+      <h1>Send SMS in the Philippines with one dashboard — or one API call.</h1>
+      <p>Bulk announcements, priority alerts and OTPs to every PH network, under one sender name: <b style="color:#fff">SMMSOFT</b>.
+         Regular SMS costs 1 credit per part; Priority and OTP cost 2.</p>
+      <div class="rowflex">
+        <a class="btn" href="pricing.html"><i class="fa-solid fa-tags"></i> See pricing</a>
+        <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> API docs</a>
+      </div>
+      <div class="networks">
+        <span class="pill">Delivers to</span><span class="pill">Globe</span><span class="pill">Smart</span><span class="pill">DITO</span><span class="pill">Sun</span><span class="pill">TNT</span><span class="pill">TM</span>
+      </div>
     </div>
-    <div class="networks">
-      <span class="pill">Globe</span><span class="pill">Smart</span><span class="pill">DITO</span>
-      <span class="pill">TNT</span><span class="pill">TM</span><span class="pill">Sun</span>
+    <div class="hero-demo">
+      <div class="codepanel">
+        <div class="cp-head"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="cp-title">Live request · POST /api/send.php</span></div>
+<pre class="mono">$ curl -X POST https://YOUR-PLATFORM/api/send.php \
+  -d "apikey=YOUR_API_KEY" \
+  -d "number=09171234567" \
+  -d "message=Your code is 482913" \
+  -d "kind=otp"
+
+{ "ok": true, "sent": 1, "cost": 2,
+  "balance": 848, "message_ids": [10293] }</pre>
+      </div>
+      <div class="phone">
+        <div class="ph-head"><i class="fa-solid fa-tower-broadcast"></i> SMMSOFT <span>now</span></div>
+        <div class="ph-msg">Your code is 482913</div>
+        <div class="ph-meta"><i class="fa-solid fa-circle-check"></i> Delivered · status: Sent</div>
+        <div class="ph-price">Price per credit <b>₱0.65</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="sv">₱0.65</div><div class="sk">per credit</div></div>
+    <div class="stat"><div class="sv">1 credit</div><div class="sk">regular SMS part</div></div>
+    <div class="stat"><div class="sv">6</div><div class="sk">PH networks reached</div></div>
+    <div class="stat"><div class="sv">Refunded</div><div class="sk">failed messages, per network report</div></div>
+  </section>
+
+  <section>
+    <p class="kick">The life of a message</p>
+    <h2 class="sec">From send button to pocket in seconds.</h2>
+    <p class="lead">Follow a single SMS from your dashboard or app to your customer's phone — and back to you as a delivery status.</p>
+    <div class="journey">
+      <div class="jstep"><div class="jn">01</div><h3>You send</h3><p>From the web dashboard, a CSV bulk file, or one API call with your own key — any system that speaks HTTP.</p></div>
+      <div class="jstep"><div class="jn">02</div><h3>Credits checked</h3><p>Your balance is checked first. Not enough credits? Nothing is sent and nothing is charged.</p></div>
+      <div class="jstep"><div class="jn">03</div><h3>Routed</h3><p>The message enters the sending queue. Priority and OTP messages skip the line.</p></div>
+      <div class="jstep"><div class="jn">04</div><h3>To the network</h3><p>Routed straight to Globe, Smart, DITO, Sun, TNT or TM — whichever network the recipient is on.</p></div>
+      <div class="jstep"><div class="jn">05</div><h3>Delivered with your name</h3><p>It lands on the phone under the sender name <b style="color:#fff">SMMSOFT</b>, not a random number.</p></div>
+      <div class="jstep"><div class="jn">06</div><h3>You see the status</h3><p>Queued, Sent, Failed or Refunded — tracked in your message history and through the API.</p></div>
     </div>
   </section>
 
   <section>
+    <p class="kick">Ways to send</p>
+    <h2 class="sec">Three ways to send. One balance.</h2>
+    <p class="lead">A small surface you can learn in an afternoon — a dashboard for people, an API for systems.</p>
     <div class="grid">
       <div class="card"><div class="ic"><i class="fa-solid fa-paper-plane"></i></div>
-        <h3>Web Sender</h3><p>Send from the dashboard to one number or a thousand at once, with a live credit counter while you type.</p></div>
-      <div class="card"><div class="ic"><i class="fa-solid fa-bolt"></i></div>
-        <h3>Priority &amp; OTP</h3><p>Time-sensitive messages skip the queue. A dedicated OTP route with auto-generated codes for logins and verification.</p></div>
-      <div class="card"><div class="ic"><i class="fa-solid fa-code"></i></div>
-        <h3>Developer API</h3><p>One POST request sends an SMS. Your own API key, your balance, full history and delivery statuses.</p></div>
+        <span class="pill">WEB</span><h3 style="margin-top:10px">Dashboard sender</h3>
+        <p>Type your message, paste your numbers, watch the live credit counter, send. Contacts and groups built in.</p></div>
       <div class="card"><div class="ic"><i class="fa-solid fa-file-csv"></i></div>
-        <h3>Personalized Bulk</h3><p>Upload a CSV and every person gets their own message — names, amounts, or codes that differ per recipient.</p></div>
+        <span class="pill">CSV</span><h3 style="margin-top:10px">Personalized bulk</h3>
+        <p>One row per person, each with their own message — names, amounts, or codes that differ per recipient.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-code"></i></div>
+        <span class="pill">POST /api/send.php</span><h3 style="margin-top:10px">Send via API</h3>
+        <p>One call sends to up to 1,000 numbers. Regular, priority, or OTP — with {otp} codes generated for you.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-wallet"></i></div>
+        <span class="pill">GET /api/account.php</span><h3 style="margin-top:10px">Check balance</h3>
+        <p>Ask the API for your account name, status and credit balance before a big send.</p></div>
     </div>
   </section>
 
   <section>
-    <h2 class="sec">How it works</h2>
-    <p class="lead">Three steps between you and every customer phone in the country.</p>
-    <div class="steps">
-      <div class="step"><div class="n">STEP 1</div><h3>Create your account</h3>
-        <p>Sign up on the SMMSOFT platform and get your dashboard, contacts book, and API key.</p></div>
-      <div class="step"><div class="n">STEP 2</div><h3>Buy credits</h3>
-        <p>Pay by GCash and submit your reference — credits land on your balance as soon as the payment is verified.</p></div>
-      <div class="step"><div class="n">STEP 3</div><h3>Send</h3>
-        <p>Type, pick Regular, Priority or OTP, and send. Watch delivery statuses update in your message history.</p></div>
+    <p class="kick">Built for</p>
+    <h2 class="sec">Wherever people need to hear from you.</h2>
+    <div class="grid">
+      <div class="card"><div class="ic"><i class="fa-solid fa-landmark"></i></div><h3>Barangays &amp; LGUs</h3>
+        <p>Public advisories and announcements, meeting and vaccination reminders, emergency alerts to residents.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-graduation-cap"></i></div><h3>Schools</h3>
+        <p>Grade and attendance notices, class suspensions, tuition reminders to parents and students.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-cart-shopping"></i></div><h3>Online sellers</h3>
+        <p>Order and shipping updates, pickup notices, promo alerts, and OTPs for account security.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-stethoscope"></i></div><h3>Clinics</h3>
+        <p>Appointment confirmations and reminders, laboratory result notifications, follow-up care messages.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-store"></i></div><h3>Retail &amp; branches</h3>
+        <p>Flash sale alerts, reservation and pickup notices, loyalty messages that bring shoppers back.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-truck-fast"></i></div><h3>Logistics</h3>
+        <p>Parcel status updates, delivery-day notices, driver dispatch messages to customers.</p></div>
     </div>
   </section>
 
   <section>
-    <h2 class="sec">Simple, honest pricing</h2>
-    <p class="lead">One credit costs <b style="color:#fff">₱0.65</b>. A regular SMS part costs 1 credit per recipient;
-       Priority and OTP cost 2. No monthly fees, no setup fees. <a href="pricing.html">Full pricing and cost calculator</a>.</p>
+    <p class="kick">Pricing</p>
+    <h2 class="sec">One price. No surprises.</h2>
+    <p class="lead">Credits cost <b style="color:#fff">₱0.65</b> each. A regular SMS part costs 1 credit per recipient;
+       Priority and OTP cost 2. Top up by GCash, submit your reference, and credits land once your payment is verified.
+       <a href="pricing.html">Full pricing with a cost calculator</a>.</p>
+    <div class="panel">
+      <h3 style="color:#fff;margin-top:0">Everything included in every account</h3>
+      <table>
+        <tr><td>Web dashboard sender</td><td>Included</td><td>Contacts &amp; groups</td><td>Included</td></tr>
+        <tr><td>Personalized CSV bulk</td><td>Included</td><td>Own API key</td><td>Included</td></tr>
+        <tr><td>Message history &amp; statuses</td><td>Included</td><td>Sender name</td><td>SMMSOFT</td></tr>
+        <tr><td>Setup fees</td><td>None</td><td>Monthly fees</td><td>None</td></tr>
+        <tr><td>Minimum top-up</td><td>10 credits</td><td>Failed messages</td><td>Refunded per network report</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="faq">
+    <p class="kick">FAQ</p>
+    <h2 class="sec">Questions, answered.</h2>
+    <details class="faq"><summary>How much does one SMS cost?</summary>
+      <p>Credits cost ₱0.65 each. A regular message of up to 160 characters costs 1 credit per recipient. Priority and OTP messages cost 2 credits per part. Longer messages split into parts of 153 characters and are charged per part.</p></details>
+    <details class="faq"><summary>What name appears on my customers' phones?</summary>
+      <p>Every message arrives under the sender name SMMSOFT — never a random mobile number — on Globe, Smart, DITO, Sun, TNT and TM.</p></details>
+    <details class="faq"><summary>How do I buy credits?</summary>
+      <p>From your platform Credits page: pay by GCash, then submit the amount and your payment reference number. Credits are added to your balance as soon as the payment is verified.</p></details>
+    <details class="faq"><summary>Am I charged for failed messages?</summary>
+      <p>No. When the network reports a message as failed, its credits are refunded to your balance.</p></details>
+    <details class="faq"><summary>Can I send OTPs?</summary>
+      <p>Yes. Use the OTP message type in the dashboard, or kind=otp in the API. Write {otp} in your message and a code is generated for you — or pass your own code.</p></details>
+    <details class="faq"><summary>What phone number format should I use?</summary>
+      <p>Philippine mobile numbers in 09xxxxxxxxx format. In the API you can send to one number or up to 1,000 numbers in a single call, separated by commas.</p></details>
+    <details class="faq"><summary>Do I need to be a developer to use SMMSOFT?</summary>
+      <p>No. The web dashboard handles sending, contacts, and history with no code at all. The API is there when your own system needs to send automatically.</p></details>
+  </section>
+
+  <section class="ctaband">
+    <h2>Ship your first message today.</h2>
+    <p>Create an account on the SMMSOFT platform, buy credits, and send — from the dashboard or straight from your code.</p>
+    <div class="rowflex" style="justify-content:center">
+      <a class="btn" href="pricing.html"><i class="fa-solid fa-rocket"></i> See pricing</a>
+      <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> Read the API docs</a>
+    </div>
   </section>
 </main>
 
 <footer class="site"><div class="wrap">
   SMMSOFT · SMS services for Philippine businesses · Sender name: SMMSOFT<br>
-  Platform access is given to registered customers. API integration: see the <a href="api.html">API docs</a>.
+  Platform access is given to registered customers. Developers: see the <a href="api.html">API docs</a>.
 </div></footer>
 <script src="assets/app.js"></script>
 </body>
