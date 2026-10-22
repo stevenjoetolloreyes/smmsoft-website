@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — SMMSOFT</title>
+<meta name="description" content="SMMSOFT pricing: ₱0.65 per credit. Regular SMS 1 credit per part, Priority and OTP 2 credits. No monthly fees. Try the cost calculator.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+  <a class="brand" href="index.html"><i class="fa-solid fa-tower-broadcast"></i> SMMSOFT</a>
+  <button id="navToggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  <nav class="links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="pricing.html" class="on">Pricing</a>
+    <a href="api.html">API Docs</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section>
+    <h2 class="sec">Pricing</h2>
+    <p class="lead">Everything runs on <b style="color:#fff">credits</b>. Buy credits, spend them when you send.
+       Credits for messages the network reports as failed are refunded to your balance.</p>
+    <div class="panel" style="text-align:center">
+      <div class="big">₱0.65 <span style="font-size:16px;color:var(--mut)">per credit</span></div>
+      <p style="color:var(--mut);margin:6px 0 0">No monthly fees · No setup fees · Minimum top-up: 10 credits</p>
+    </div>
+    <table>
+      <tr><th>Message type</th><th>Cost</th><th>Best for</th></tr>
+      <tr><td><i class="fa-solid fa-paper-plane"></i> Regular</td><td>1 credit per part, per recipient</td><td>Announcements, promos, reminders</td></tr>
+      <tr><td><i class="fa-solid fa-bolt"></i> Priority</td><td>2 credits per part, per recipient</td><td>Urgent alerts that skip the sending queue</td></tr>
+      <tr><td><i class="fa-solid fa-key"></i> OTP</td><td>2 credits per part, per recipient</td><td>Login codes and verification — dedicated route</td></tr>
+    </table>
+    <p style="color:var(--mut);font-size:14px">One part is up to 160 characters. Longer messages are split into parts of 153 characters and charged per part.</p>
+  </section>
+
+  <section>
+    <h2 class="sec">Cost calculator</h2>
+    <p class="lead">Type a sample message and see exactly what a send would cost.</p>
+    <div class="panel">
+      <label>Your message</label>
+      <textarea id="calcMsg" rows="3">Hello! Your order is ready for pickup today. Thank you for shopping with us.</textarea>
+      <label>Recipients</label>
+      <input type="text" id="calcRec" inputmode="numeric" value="100">
+      <label>Message type</label>
+      <select id="calcKind">
+        <option value="regular">Regular — 1 credit per part</option>
+        <option value="priority">Priority — 2 credits per part</option>
+        <option value="otp">OTP — 2 credits per part</option>
+      </select>
+      <div class="count" id="calcOut" style="font-size:15px;margin-top:14px"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">How to buy credits</h2>
+    <div class="steps">
+      <div class="step"><div class="n">STEP 1</div><h3>Pay</h3><p>Send your payment by GCash to the number shown on your platform Credits page.</p></div>
+      <div class="step"><div class="n">STEP 2</div><h3>Submit the reference</h3><p>Enter the credits you bought and your payment reference number.</p></div>
+      <div class="step"><div class="n">STEP 3</div><h3>Credits land</h3><p>Once the payment is verified, the credits appear on your balance and you can send right away.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap">
+  SMMSOFT · SMS services for Philippine businesses · Sender name: SMMSOFT<br>
+  Developers: integrate with the <a href="api.html">API docs</a>.
+</div></footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

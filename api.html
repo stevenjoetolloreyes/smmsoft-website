@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Docs — SMMSOFT</title>
+<meta name="description" content="SMMSOFT API documentation: send SMS and check your balance with your own API key. Endpoints, parameters, examples and error codes.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+  <a class="brand" href="index.html"><i class="fa-solid fa-tower-broadcast"></i> SMMSOFT</a>
+  <button id="navToggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  <nav class="links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="api.html" class="on">API Docs</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section>
+    <h2 class="sec">API documentation</h2>
+    <p class="lead">Every SMMSOFT account gets its own API key (see <b style="color:#fff">API Access</b> in your platform dashboard).
+       Keep it secret — anyone holding your key can send SMS using your credits.</p>
+
+    <div class="panel">
+      <h3 style="color:#fff;margin-top:0"><i class="fa-solid fa-paper-plane"></i> Send an SMS</h3>
+      <p class="mono">POST /api/send.php</p>
+      <table>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+        <tr><td class="mono">apikey</td><td>Yes</td><td>Your API key (or send the header <span class="mono">X-Api-Key</span>)</td></tr>
+        <tr><td class="mono">number</td><td>Yes</td><td>One Philippine number, or many separated by commas (max 1,000 per call). Format: 09xxxxxxxxx</td></tr>
+        <tr><td class="mono">message</td><td>Yes</td><td>Your text. Long messages split into parts; each part costs credits.</td></tr>
+        <tr><td class="mono">kind</td><td>No</td><td><span class="mono">regular</span> (default), <span class="mono">priority</span>, or <span class="mono">otp</span></td></tr>
+        <tr><td class="mono">otp_code</td><td>No</td><td>For kind=otp: your own code; replaces {otp} in the message. Omit it and one is generated for you.</td></tr>
+      </table>
+      <label>Example (cURL)</label>
+      <pre class="mono">curl -X POST https://YOUR-PLATFORM-DOMAIN/api/send.php \
+  -d "apikey=YOUR_API_KEY" \
+  -d "number=09171234567" \
+  -d "message=Hello from SMMSOFT API"</pre>
+      <label>Success response</label>
+      <pre class="mono">{"ok":true,"sent":1,"cost":1,"balance":99,"message_ids":[12345]}</pre>
+    </div>
+
+    <div class="panel">
+      <h3 style="color:#fff;margin-top:0"><i class="fa-solid fa-wallet"></i> Check your balance</h3>
+      <p class="mono">GET /api/account.php?apikey=YOUR_API_KEY</p>
+      <pre class="mono">{"ok":true,"account_name":"My Store","email":"me@example.ph",
+ "status":"active","credit_balance":99}</pre>
+    </div>
+
+    <div class="panel">
+      <h3 style="color:#fff;margin-top:0"><i class="fa-solid fa-triangle-exclamation"></i> Errors</h3>
+      <p style="color:var(--mut)">Errors return JSON with an HTTP status code:</p>
+      <pre class="mono">{"ok":false,"error":"Insufficient credits..."}</pre>
+      <table>
+        <tr><th>HTTP</th><th>Meaning</th></tr>
+        <tr><td class="mono">401</td><td>Missing or invalid API key</td></tr>
+        <tr><td class="mono">402</td><td>Insufficient credits for this send</td></tr>
+        <tr><td class="mono">403</td><td>Account suspended</td></tr>
+        <tr><td class="mono">422</td><td>Invalid number or empty message</td></tr>
+        <tr><td class="mono">502</td><td>Sending network error — not charged</td></tr>
+      </table>
+      <p style="color:var(--mut);font-size:14px">Note: messages starting with the word TEST are rejected — the network silently ignores them, so we block them up front instead of charging you.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap">
+  SMMSOFT · SMS services for Philippine businesses · Sender name: SMMSOFT<br>
+  Replace YOUR-PLATFORM-DOMAIN with the address of your SMMSOFT platform.
+</div></footer>
+<script src="assets/app.js"></script>
+</body>
+</html>
