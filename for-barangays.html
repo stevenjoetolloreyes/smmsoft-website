@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMS for Barangays & LGUs: Alerts and Public Advisories | SMMSOFT</title>
+<meta name="description" content="Send disaster alerts, public advisories and reminders to residents with SMMSOFT. Dashboard, CSV or API. Sender name SMMSOFT, credits from ₱0.65.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+  <a class="brand" href="index.html"><i class="fa-solid fa-tower-broadcast"></i> SMMSOFT</a>
+  <span class="brandsub">PH SMS platform for businesses · Globe · Smart · DITO · Sun · TNT</span>
+  <button id="navToggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  <nav class="links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="api.html">API Docs</a>
+    <a href="index.html#usecases">Use cases</a>
+    <a href="index.html#faq">FAQ</a>
+    <a class="btn small" href="pricing.html"><i class="fa-solid fa-rocket"></i> Get started</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section style="padding:44px 0 8px">
+    <span class="tag"><i class="fa-solid fa-landmark"></i> LGU · SMS for barangays and LGUs</span>
+    <h1 style="font-size:clamp(28px,4.4vw,40px);color:#fff;line-height:1.15;margin:16px 0 12px">One advisory. Every resident on your list.</h1>
+    <p class="lead" style="max-width:760px">Send disaster alerts, public advisories, and vaccination or event reminders from the dashboard or your barangay system. Residents receive them under the sender name <b style="color:#fff">SMMSOFT</b> on Globe, Smart, DITO, Sun, TNT and TM — ₱0.65 per credit, regular SMS at 1 credit per part.</p>
+    <div class="rowflex">
+      <a class="btn" href="pricing.html"><i class="fa-solid fa-tags"></i> See pricing</a>
+      <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> API docs</a>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="sv">All PH networks</div><div class="sk">Globe · Smart · DITO · Sun · TNT · TM</div></div>
+    <div class="stat"><div class="sv">₱0.65</div><div class="sk">per credit · regular SMS = 1 credit per part</div></div>
+    <div class="stat"><div class="sv">No code needed</div><div class="sk">send from the dashboard or a CSV file</div></div>
+    <div class="stat"><div class="sv">Refunded</div><div class="sk">failed messages, per network report</div></div>
+  </section>
+
+  <section>
+    <p class="kick">What local governments send</p>
+    <h2 class="sec">Messages residents need to get on time.</h2>
+    <div class="grid">
+      <div class="card"><span class="pill">DASHBOARD</span>
+        <h3 style="margin-top:10px">Disaster and emergency alerts</h3>
+        <p>Reach every resident on your list at once when a storm signal is raised or an evacuation is ordered. Type the numbers once, or save them as a contact group.</p>
+        <div class="sample">SMMSOFT: Signal No. 3 nakataas na. Mga nasa mababang lugar, pumunta na po sa evacuation center sa San Jose Elementary School.</div></div>
+      <div class="card"><span class="pill">CSV BULK</span>
+        <h3 style="margin-top:10px">Public advisories and announcements</h3>
+        <p>Water interruptions, road closures and assemblies — a different message per barangay in a single upload.</p>
+        <div class="sample">SMMSOFT: Brgy. San Jose: Walang tubig bukas, 8AM-5PM, dahil sa pipe repair. Mag-imbak na po ng tubig ngayong gabi.</div></div>
+      <div class="card"><span class="pill">API · POST /api/send.php</span>
+        <h3 style="margin-top:10px">Vaccination and event reminders</h3>
+        <p>Each resident reminded of their own schedule, straight from your health office or registration system — one message per resident.</p>
+        <div class="sample">SMMSOFT: Hi Maria, ang bakuna mo ay sa Oct 24, 9AM, sa Rural Health Unit. Magdala po ng valid ID.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">No developer? No problem</p>
+    <h2 class="sec">Send from the dashboard.</h2>
+    <p class="lead">Export your list from Excel or Google Sheets as a CSV — the number in the first column, the message in the second — and upload it. Every row can carry a different message.</p>
+    <div class="panel">
+      <p style="color:#fff;font-weight:600;margin-top:0">vaccination-reminders.csv</p>
+      <table>
+        <tr><th>number</th><th>message</th></tr>
+        <tr><td>09171234567</td><td>Hi Maria, your vaccination is on Oct 24, 9AM, at the RHU.</td></tr>
+        <tr><td>09181234567</td><td>Hi Jose, your vaccination is on Oct 24, 10AM, at the RHU.</td></tr>
+        <tr><td>09271234567</td><td>Hi Liza, your vaccination is on Oct 25, 9AM, at the RHU.</td></tr>
+      </table>
+      <p style="color:var(--mut);font-size:13.5px;margin-bottom:0">Invalid rows are skipped. Every message and its status appear in your message history.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">Why SMMSOFT</p>
+    <h2 class="sec">Built for public service.</h2>
+    <div class="grid">
+      <div class="card"><div class="ic"><i class="fa-solid fa-id-badge"></i></div><h3>The SMMSOFT name as sender</h3><p>Residents see the SMMSOFT sender name on every network, so the message reads as official — not a random number.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-list-check"></i></div><h3>Every status tracked</h3><p>Queued, Sent, Failed or Refunded — each message and its status stays in your history, per recipient.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-rotate-left"></i></div><h3>Failed means refunded</h3><p>When the network reports a message as failed, its credits go back to your balance automatically.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-file-csv"></i></div><h3>No developer required</h3><p>Your staff send from the dashboard or a CSV exported from Excel. If your office runs its own system, the same account works through the API.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">Getting started</p>
+    <h2 class="sec">Live in three steps.</h2>
+    <div class="journey">
+      <div class="jstep"><div class="jn">01</div><h3>Create an account</h3><p>Register on the SMMSOFT platform. Your dashboard, contacts and API key are ready right away.</p></div>
+      <div class="jstep"><div class="jn">02</div><h3>Buy credits</h3><p>Pay by GCash from the Credits page and submit your reference number. Credits land on your balance once the payment is verified.</p></div>
+      <div class="jstep"><div class="jn">03</div><h3>Send under SMMSOFT</h3><p>Send advisories from the dashboard, upload a CSV of residents, or connect your system with your API key — all under the SMMSOFT name.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">FAQ</p>
+    <h2 class="sec">Questions from LGUs.</h2>
+    <details class="faq"><summary>Can we send an alert to every resident at once?</summary><p>Yes. Paste the numbers in the dashboard sender, upload them as a CSV, or pass up to 1,000 numbers in a single API call. Each recipient is charged as a normal SMS.</p></details>
+    <details class="faq"><summary>Do we need a developer?</summary><p>No. Staff can send from the dashboard or upload a CSV from Excel or Google Sheets. The API is there if your IT team wants alerts to go out from your own systems.</p></details>
+    <details class="faq"><summary>Whose numbers can we send to?</summary><p>Residents who gave their numbers to your barangay or LGU — through registration, a census, or a sign-up drive. Keep your list yours; do not buy number lists.</p></details>
+    <details class="faq"><summary>Can we write messages in Filipino or the local language?</summary><p>Yes. Use standard letters and keep messages plain-text so every phone displays them correctly.</p></details>
+    <details class="faq"><summary>How do we pay?</summary><p>Buy credits on the platform with GCash, submit your reference number, and the credits land on your balance once the payment is verified.</p></details>
+  </section>
+
+  <section class="ctaband">
+    <h2>Your residents, one advisory away.</h2>
+    <p>Credits from ₱0.65. No setup fees, no monthly fees — pay only for the messages you send.</p>
+    <div class="rowflex" style="justify-content:center">
+      <a class="btn" href="pricing.html"><i class="fa-solid fa-rocket"></i> See pricing</a>
+      <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> Read the API docs</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap">
+  SMMSOFT · SMS services for Philippine businesses · Sender name: SMMSOFT<br>
+  Also built for: <a href="for-barangays.html">Barangays &amp; LGUs</a> · <a href="for-schools.html">Schools</a> · <a href="for-sellers.html">Online sellers</a> · <a href="for-clinics.html">Clinics</a> · <a href="for-retail.html">Retail</a> · <a href="for-logistics.html">Logistics</a>
+</div></footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

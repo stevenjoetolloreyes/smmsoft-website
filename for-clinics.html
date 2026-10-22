@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMS for Clinics: Appointment and Results Reminders | SMMSOFT</title>
+<meta name="description" content="Appointment reminders, results-ready notices and follow-up care messages for Philippine clinics with SMMSOFT. Credits from ₱0.65.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+  <a class="brand" href="index.html"><i class="fa-solid fa-tower-broadcast"></i> SMMSOFT</a>
+  <span class="brandsub">PH SMS platform for businesses · Globe · Smart · DITO · Sun · TNT</span>
+  <button id="navToggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  <nav class="links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="api.html">API Docs</a>
+    <a href="index.html#usecases">Use cases</a>
+    <a href="index.html#faq">FAQ</a>
+    <a class="btn small" href="pricing.html"><i class="fa-solid fa-rocket"></i> Get started</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section style="padding:44px 0 8px">
+    <span class="tag"><i class="fa-solid fa-stethoscope"></i> MED · SMS for clinics and medical labs</span>
+    <h1 style="font-size:clamp(28px,4.4vw,40px);color:#fff;line-height:1.15;margin:16px 0 12px">Remind every patient, right on schedule.</h1>
+    <p class="lead" style="max-width:760px">Send appointment reminders, results-ready notices and follow-up care messages from the dashboard or your booking system. Patients see the sender name <b style="color:#fff">SMMSOFT</b> on every network — ₱0.65 per credit, no monthly fees.</p>
+    <div class="rowflex">
+      <a class="btn" href="pricing.html"><i class="fa-solid fa-tags"></i> See pricing</a>
+      <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> API docs</a>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="sv">All PH networks</div><div class="sk">Globe · Smart · DITO · Sun · TNT · TM</div></div>
+    <div class="stat"><div class="sv">₱0.65</div><div class="sk">per credit · regular SMS = 1 credit per part</div></div>
+    <div class="stat"><div class="sv">No code needed</div><div class="sk">send from the dashboard or a CSV file</div></div>
+    <div class="stat"><div class="sv">Refunded</div><div class="sk">failed messages, per network report</div></div>
+  </section>
+
+  <section>
+    <p class="kick">What clinics send</p>
+    <h2 class="sec">Reminders that keep your schedule full.</h2>
+    <div class="grid">
+      <div class="card"><span class="pill">API · POST /api/send.php</span>
+        <h3 style="margin-top:10px">Appointment reminders</h3>
+        <p>A reminder as each booking is made, and again the day before. Your booking system sends one message per appointment.</p>
+        <div class="sample">SMMSOFT: Hi Ana, paalala sa check-up mo kay Dr. Santos bukas, Oct 22, 2PM. Dumating po ng 15 minutes maaga.</div></div>
+      <div class="card"><span class="pill">API · POST /api/send.php</span>
+        <h3 style="margin-top:10px">Results-ready notices</h3>
+        <p>Tell patients their results are ready — without putting medical details in the text. One message per patient as each result is released.</p>
+        <div class="sample">SMMSOFT: Hi Mark, handa na po ang lab results mo. Kunin sa front desk at magdala ng valid ID.</div></div>
+      <div class="card"><span class="pill">CSV BULK</span>
+        <h3 style="margin-top:10px">Follow-up care reminders</h3>
+        <p>Bring patients back for check-ups and refills. A whole day’s list, each patient with their own message, in one upload.</p>
+        <div class="sample">SMMSOFT: Hi Mr. Cruz, oras na para sa iyong 3-month follow-up. Tumawag sa (02) 8123 4567 para magpa-schedule.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">No developer? No problem</p>
+    <h2 class="sec">Send from the dashboard.</h2>
+    <p class="lead">Export your list from Excel or Google Sheets as a CSV — the number in the first column, the message in the second — and upload it. Every row can carry a different message.</p>
+    <div class="panel">
+      <p style="color:#fff;font-weight:600;margin-top:0">tomorrows-appointments.csv</p>
+      <table>
+        <tr><th>number</th><th>message</th></tr>
+        <tr><td>09171234567</td><td>Hi Ana, a reminder of your check-up tomorrow, 2PM.</td></tr>
+        <tr><td>09181234567</td><td>Hi Mark, a reminder of your check-up tomorrow, 3PM.</td></tr>
+        <tr><td>09271234567</td><td>Hi Liza, a reminder of your check-up tomorrow, 4PM.</td></tr>
+      </table>
+      <p style="color:var(--mut);font-size:13.5px;margin-bottom:0">Invalid rows are skipped. Every message and its status appear in your message history.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">Why SMMSOFT</p>
+    <h2 class="sec">Built for busy front desks.</h2>
+    <div class="grid">
+      <div class="card"><div class="ic"><i class="fa-solid fa-id-badge"></i></div><h3>The SMMSOFT name as sender</h3><p>Patients see the SMMSOFT sender name on every network, so the message reads as official — not a random number.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-list-check"></i></div><h3>Every status tracked</h3><p>Queued, Sent, Failed or Refunded — each message and its status stays in your history, per recipient.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-rotate-left"></i></div><h3>Failed means refunded</h3><p>When the network reports a message as failed, its credits go back to your balance automatically.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-bell"></i></div><h3>Day-before lists in minutes</h3><p>Export tomorrow’s appointments, upload the CSV, and every patient is reminded — no one calls patients one by one anymore.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">Getting started</p>
+    <h2 class="sec">Live in three steps.</h2>
+    <div class="journey">
+      <div class="jstep"><div class="jn">01</div><h3>Create an account</h3><p>Register on the SMMSOFT platform. Your dashboard, contacts and API key are ready right away.</p></div>
+      <div class="jstep"><div class="jn">02</div><h3>Buy credits</h3><p>Pay by GCash from the Credits page and submit your reference number. Credits land on your balance once the payment is verified.</p></div>
+      <div class="jstep"><div class="jn">03</div><h3>Send under SMMSOFT</h3><p>Upload tomorrow’s appointment list as CSV, or connect your booking system with your API key — reminders go out under the SMMSOFT name.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">FAQ</p>
+    <h2 class="sec">Questions from clinics.</h2>
+    <details class="faq"><summary>Can our booking system send reminders automatically?</summary><p>Yes. Call the API when an appointment is booked and again the day before. For a whole day’s list, the CSV upload sends a different message to each patient in one go.</p></details>
+    <details class="faq"><summary>Should we put test results in the SMS?</summary><p>Better not. Say that results are ready and how to claim them, and keep the medical details at the clinic or in your portal.</p></details>
+    <details class="faq"><summary>We don’t have a developer. Can we still send reminders?</summary><p>Yes. Export the day’s appointments from your system or a spreadsheet as a CSV — number in the first column, message in the second — and upload it from the dashboard.</p></details>
+    <details class="faq"><summary>Can patients reply to the message?</summary><p>Sender-name messages are one-way, so include your clinic’s phone number in the text for confirmations and cancellations.</p></details>
+    <details class="faq"><summary>Do credits expire or is there a monthly fee?</summary><p>There are no monthly fees. You buy credits when you need them, and failed messages are refunded per network report.</p></details>
+  </section>
+
+  <section class="ctaband">
+    <h2>Fewer empty slots on your schedule.</h2>
+    <p>Credits from ₱0.65. No setup fees, no monthly fees — pay only for the messages you send.</p>
+    <div class="rowflex" style="justify-content:center">
+      <a class="btn" href="pricing.html"><i class="fa-solid fa-rocket"></i> See pricing</a>
+      <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> Read the API docs</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap">
+  SMMSOFT · SMS services for Philippine businesses · Sender name: SMMSOFT<br>
+  Also built for: <a href="for-barangays.html">Barangays &amp; LGUs</a> · <a href="for-schools.html">Schools</a> · <a href="for-sellers.html">Online sellers</a> · <a href="for-clinics.html">Clinics</a> · <a href="for-retail.html">Retail</a> · <a href="for-logistics.html">Logistics</a>
+</div></footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

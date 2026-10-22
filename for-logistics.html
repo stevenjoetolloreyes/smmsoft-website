@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMS for Logistics: Parcel Updates and Delivery Notices | SMMSOFT</title>
+<meta name="description" content="Parcel status updates, delivery-day notices and pickup reminders for Philippine couriers with SMMSOFT. API and CSV. Credits from ₱0.65.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+  <a class="brand" href="index.html"><i class="fa-solid fa-tower-broadcast"></i> SMMSOFT</a>
+  <span class="brandsub">PH SMS platform for businesses · Globe · Smart · DITO · Sun · TNT</span>
+  <button id="navToggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  <nav class="links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="api.html">API Docs</a>
+    <a href="index.html#usecases">Use cases</a>
+    <a href="index.html#faq">FAQ</a>
+    <a class="btn small" href="pricing.html"><i class="fa-solid fa-rocket"></i> Get started</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section style="padding:44px 0 8px">
+    <span class="tag"><i class="fa-solid fa-truck-fast"></i> MOVE · SMS for couriers and logistics</span>
+    <h1 style="font-size:clamp(28px,4.4vw,40px);color:#fff;line-height:1.15;margin:16px 0 12px">Every parcel, updated at every stop.</h1>
+    <p class="lead" style="max-width:760px">Send parcel status updates, delivery-day notices and pickup reminders from your dispatch system or the dashboard. Customers see the sender name <b style="color:#fff">SMMSOFT</b> — ₱0.65 per credit, charged only for messages sent.</p>
+    <div class="rowflex">
+      <a class="btn" href="pricing.html"><i class="fa-solid fa-tags"></i> See pricing</a>
+      <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> API docs</a>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="sv">All PH networks</div><div class="sk">Globe · Smart · DITO · Sun · TNT · TM</div></div>
+    <div class="stat"><div class="sv">₱0.65</div><div class="sk">per credit · regular SMS = 1 credit per part</div></div>
+    <div class="stat"><div class="sv">No code needed</div><div class="sk">send from the dashboard or a CSV file</div></div>
+    <div class="stat"><div class="sv">Refunded</div><div class="sk">failed messages, per network report</div></div>
+  </section>
+
+  <section>
+    <p class="kick">What couriers send</p>
+    <h2 class="sec">Updates customers wait for.</h2>
+    <div class="grid">
+      <div class="card"><span class="pill">API · POST /api/send.php</span>
+        <h3 style="margin-top:10px">Parcel status updates</h3>
+        <p>Picked up, in transit, out for delivery — one message per status change, sent by your system as the parcel moves.</p>
+        <div class="sample">SMMSOFT: Ang parcel mo ay out for delivery na ngayon. Pakihanda ang bayad kung ito ay COD.</div></div>
+      <div class="card"><span class="pill">CSV BULK</span>
+        <h3 style="margin-top:10px">Delivery-day notices</h3>
+        <p>The morning’s whole run in one upload — each customer with their own time window and rider note.</p>
+        <div class="sample">SMMSOFT: Hi Jose, ang delivery mo ay naka-schedule ngayong araw, 9AM-12NN. Tatawag ang rider pag malapit na.</div></div>
+      <div class="card"><span class="pill">DASHBOARD</span>
+        <h3 style="margin-top:10px">Failed-delivery and pickup reminders</h3>
+        <p>Tell customers where and until when they can claim an undelivered parcel at your hub.</p>
+        <div class="sample">SMMSOFT: Hindi na-deliver ang parcel mo kahapon. Kunin ito sa hub hanggang Oct 25, magdala ng valid ID.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">No developer? No problem</p>
+    <h2 class="sec">Send from the dashboard.</h2>
+    <p class="lead">Export your list from Excel or Google Sheets as a CSV — the number in the first column, the message in the second — and upload it. Every row can carry a different message.</p>
+    <div class="panel">
+      <p style="color:#fff;font-weight:600;margin-top:0">todays-deliveries.csv</p>
+      <table>
+        <tr><th>number</th><th>message</th></tr>
+        <tr><td>09171234567</td><td>Hi Ana, delivery today 9AM-12NN. Rider will call when near.</td></tr>
+        <tr><td>09181234567</td><td>Hi Jose, delivery today 1PM-4PM. Rider will call when near.</td></tr>
+        <tr><td>09271234567</td><td>Hi Liza, delivery today 4PM-6PM. Rider will call when near.</td></tr>
+      </table>
+      <p style="color:var(--mut);font-size:13.5px;margin-bottom:0">Invalid rows are skipped. Every message and its status appear in your message history.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">One request</p>
+    <h2 class="sec">A status update from your system.</h2>
+    <p class="lead">When a parcel changes status, your system sends one API call. The customer is updated in seconds, and the message is recorded in your history.</p>
+    <div class="panel"><pre class="mono">$ curl -X POST https://YOUR-PLATFORM/api/send.php \
+  -d "apikey=YOUR_API_KEY" \
+  -d "number=09171234567" \
+  -d "message=Your parcel is out for delivery today."
+
+{ "ok": true, "sent": 1, "cost": 1, "balance": 1204 }</pre></div>
+  </section>
+  <section>
+    <p class="kick">Why SMMSOFT</p>
+    <h2 class="sec">Built for dispatch teams.</h2>
+    <div class="grid">
+      <div class="card"><div class="ic"><i class="fa-solid fa-id-badge"></i></div><h3>The SMMSOFT name as sender</h3><p>Customers see the SMMSOFT sender name on every network, so the message reads as official — not a random number.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-list-check"></i></div><h3>Every status tracked</h3><p>Queued, Sent, Failed or Refunded — each message and its status stays in your history, per recipient.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-rotate-left"></i></div><h3>Failed means refunded</h3><p>When the network reports a message as failed, its credits go back to your balance automatically.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-phone-volume"></i></div><h3>Fewer “where is my parcel?” calls</h3><p>Customers who get a status text on time call less. Every update is also in your history when support needs to check.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">Getting started</p>
+    <h2 class="sec">Live in three steps.</h2>
+    <div class="journey">
+      <div class="jstep"><div class="jn">01</div><h3>Create an account</h3><p>Register on the SMMSOFT platform. Your dashboard, contacts and API key are ready right away.</p></div>
+      <div class="jstep"><div class="jn">02</div><h3>Buy credits</h3><p>Pay by GCash from the Credits page and submit your reference number. Credits land on your balance once the payment is verified.</p></div>
+      <div class="jstep"><div class="jn">03</div><h3>Send under SMMSOFT</h3><p>Send from the dashboard for today’s exceptions, upload the day’s run as CSV, or connect your dispatch system with your API key.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">FAQ</p>
+    <h2 class="sec">Questions from couriers.</h2>
+    <details class="faq"><summary>Can each customer get their own time window?</summary><p>Yes. Upload a CSV where every row has that customer’s own message, or send one API call per status change with the window in the text.</p></details>
+    <details class="faq"><summary>Can we remind COD customers to prepare payment?</summary><p>Yes — include it in the out-for-delivery message, like the sample on this page. It cuts failed first attempts.</p></details>
+    <details class="faq"><summary>How do we know a notice was delivered?</summary><p>Every message’s status — Queued, Sent, Failed or Refunded — is in your message history, and failed messages are refunded per network report.</p></details>
+    <details class="faq"><summary>What does one update cost?</summary><p>1 credit per message part, per recipient — ₱0.65 for a normal-length update.</p></details>
+    <details class="faq"><summary>Do we need our own system to use this?</summary><p>No. Dispatchers can send the day’s notices from the dashboard or a CSV upload. The API is for automatic status updates.</p></details>
+  </section>
+
+  <section class="ctaband">
+    <h2>Your customers, updated at every stop.</h2>
+    <p>Credits from ₱0.65. No setup fees, no monthly fees — pay only for the messages you send.</p>
+    <div class="rowflex" style="justify-content:center">
+      <a class="btn" href="pricing.html"><i class="fa-solid fa-rocket"></i> See pricing</a>
+      <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> Read the API docs</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap">
+  SMMSOFT · SMS services for Philippine businesses · Sender name: SMMSOFT<br>
+  Also built for: <a href="for-barangays.html">Barangays &amp; LGUs</a> · <a href="for-schools.html">Schools</a> · <a href="for-sellers.html">Online sellers</a> · <a href="for-clinics.html">Clinics</a> · <a href="for-retail.html">Retail</a> · <a href="for-logistics.html">Logistics</a>
+</div></footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

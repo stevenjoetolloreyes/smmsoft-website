@@ -17,29 +17,24 @@
     <a href="index.html" class="on">Home</a>
     <a href="pricing.html">Pricing</a>
     <a href="api.html">API Docs</a>
+    <a href="index.html#usecases">Use cases</a>
     <a href="#faq">FAQ</a>
     <a class="btn small" href="pricing.html"><i class="fa-solid fa-rocket"></i> Get started</a>
   </nav>
 </div></header>
 
 <main class="wrap">
-  <section class="hero2">
-    <div class="hero-copy">
-      <span class="tag"><i class="fa-solid fa-coins"></i> Credits from ₱0.65 · No monthly fees</span>
-      <h1>Send SMS in the Philippines with one dashboard — or one API call.</h1>
-      <p>Bulk announcements, priority alerts and OTPs to every PH network, under one sender name: <b style="color:#fff">SMMSOFT</b>.
-         Regular SMS costs 1 credit per part; Priority and OTP cost 2.</p>
-      <div class="rowflex">
-        <a class="btn" href="pricing.html"><i class="fa-solid fa-tags"></i> See pricing</a>
-        <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> API docs</a>
-      </div>
-      <div class="networks">
-        <span class="pill">Delivers to</span><span class="pill">Globe</span><span class="pill">Smart</span><span class="pill">DITO</span><span class="pill">Sun</span><span class="pill">TNT</span><span class="pill">TM</span>
-      </div>
+  <section class="hero-c">
+    <span class="badge"><b>PH</b> SMS platform for businesses &nbsp;·&nbsp; Globe, Smart, DITO, Sun, TNT</span>
+    <h1>Send SMS in the Philippines,<br><span class="grad">from one dashboard<br>or one API call.</span></h1>
+    <p class="sub">Bulk announcements, priority alerts and OTPs to every PH network, under one sender name: <b style="color:#fff">SMMSOFT</b>. Credits from ₱0.65. No setup fees, no monthly fees.</p>
+    <div class="rowflex" style="justify-content:center">
+      <a class="btn" href="pricing.html">See pricing <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn ghost" href="api.html">Read the API docs</a>
     </div>
-    <div class="hero-demo">
-      <div class="codepanel">
-        <div class="cp-head"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="cp-title">Live request · POST /api/send.php</span></div>
+    <p class="smallprint">Dashboard sender · Personalized CSV bulk · REST API — one balance for all three</p>
+    <div class="codepanel hero-code">
+      <div class="cp-head"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="cp-title">Live request · POST /api/send.php</span></div>
 <pre class="mono">$ curl -X POST https://YOUR-PLATFORM/api/send.php \
   -d "apikey=YOUR_API_KEY" \
   -d "number=09171234567" \
@@ -48,13 +43,15 @@
 
 { "ok": true, "sent": 1, "cost": 2,
   "balance": 848, "message_ids": [10293] }</pre>
-      </div>
+    </div>
+    <div class="infocards">
+      <div class="info"><div class="ik">Price per credit</div><div class="iv">₱0.65</div><div class="in">Regular SMS = 1 credit per part · Priority &amp; OTP = 2</div></div>
       <div class="phone">
         <div class="ph-head"><i class="fa-solid fa-tower-broadcast"></i> SMMSOFT <span>now</span></div>
         <div class="ph-msg">Your code is 482913</div>
         <div class="ph-meta"><i class="fa-solid fa-circle-check"></i> Delivered · status: Sent</div>
-        <div class="ph-price">Price per credit <b>₱0.65</b></div>
       </div>
+      <div class="info"><div class="ik">Sender name</div><div class="iv">SMMSOFT</div><div class="in">On Globe · Smart · DITO · Sun · TNT · TM</div></div>
     </div>
   </section>
 
@@ -100,21 +97,27 @@
   </section>
 
   <section>
-    <p class="kick">Built for</p>
+    <p class="kick" id="usecases">Built for</p>
     <h2 class="sec">Wherever people need to hear from you.</h2>
     <div class="grid">
       <div class="card"><div class="ic"><i class="fa-solid fa-landmark"></i></div><h3>Barangays &amp; LGUs</h3>
-        <p>Public advisories and announcements, meeting and vaccination reminders, emergency alerts to residents.</p></div>
+        <p>Public advisories and announcements, meeting and vaccination reminders, emergency alerts to residents.</p>
+        <a class="morelink" href="for-barangays.html">SMS for barangays &amp; LGUs <i class="fa-solid fa-arrow-right"></i></a></div>
       <div class="card"><div class="ic"><i class="fa-solid fa-graduation-cap"></i></div><h3>Schools</h3>
-        <p>Grade and attendance notices, class suspensions, tuition reminders to parents and students.</p></div>
+        <p>Grade and attendance notices, class suspensions, tuition reminders to parents and students.</p>
+        <a class="morelink" href="for-schools.html">SMS for schools <i class="fa-solid fa-arrow-right"></i></a></div>
       <div class="card"><div class="ic"><i class="fa-solid fa-cart-shopping"></i></div><h3>Online sellers</h3>
-        <p>Order and shipping updates, pickup notices, promo alerts, and OTPs for account security.</p></div>
+        <p>Order and shipping updates, pickup notices, promo alerts, and OTPs for account security.</p>
+        <a class="morelink" href="for-sellers.html">SMS for online sellers <i class="fa-solid fa-arrow-right"></i></a></div>
       <div class="card"><div class="ic"><i class="fa-solid fa-stethoscope"></i></div><h3>Clinics</h3>
-        <p>Appointment confirmations and reminders, laboratory result notifications, follow-up care messages.</p></div>
+        <p>Appointment confirmations and reminders, laboratory result notifications, follow-up care messages.</p>
+        <a class="morelink" href="for-clinics.html">SMS for clinics <i class="fa-solid fa-arrow-right"></i></a></div>
       <div class="card"><div class="ic"><i class="fa-solid fa-store"></i></div><h3>Retail &amp; branches</h3>
-        <p>Flash sale alerts, reservation and pickup notices, loyalty messages that bring shoppers back.</p></div>
+        <p>Flash sale alerts, reservation and pickup notices, loyalty messages that bring shoppers back.</p>
+        <a class="morelink" href="for-retail.html">SMS for retail <i class="fa-solid fa-arrow-right"></i></a></div>
       <div class="card"><div class="ic"><i class="fa-solid fa-truck-fast"></i></div><h3>Logistics</h3>
-        <p>Parcel status updates, delivery-day notices, driver dispatch messages to customers.</p></div>
+        <p>Parcel status updates, delivery-day notices, driver dispatch messages to customers.</p>
+        <a class="morelink" href="for-logistics.html">SMS for logistics <i class="fa-solid fa-arrow-right"></i></a></div>
     </div>
   </section>
 

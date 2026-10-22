@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMS for Online Sellers: OTPs and Order Updates | SMMSOFT</title>
+<meta name="description" content="OTPs, order confirmations and shipping updates for Philippine online stores with SMMSOFT. OTP mode with generated codes. Credits from ₱0.65.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+  <a class="brand" href="index.html"><i class="fa-solid fa-tower-broadcast"></i> SMMSOFT</a>
+  <span class="brandsub">PH SMS platform for businesses · Globe · Smart · DITO · Sun · TNT</span>
+  <button id="navToggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  <nav class="links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="api.html">API Docs</a>
+    <a href="index.html#usecases">Use cases</a>
+    <a href="index.html#faq">FAQ</a>
+    <a class="btn small" href="pricing.html"><i class="fa-solid fa-rocket"></i> Get started</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section style="padding:44px 0 8px">
+    <span class="tag"><i class="fa-solid fa-cart-shopping"></i> SHOP · SMS for online sellers</span>
+    <h1 style="font-size:clamp(28px,4.4vw,40px);color:#fff;line-height:1.15;margin:16px 0 12px">OTPs and order updates your buyers actually read.</h1>
+    <p class="lead" style="max-width:760px">Send login and checkout codes, order confirmations and shipping updates from your store system or the dashboard. Buyers see the sender name <b style="color:#fff">SMMSOFT</b> — never an unknown number. OTP messages cost 2 credits per part on the priority route.</p>
+    <div class="rowflex">
+      <a class="btn" href="pricing.html"><i class="fa-solid fa-tags"></i> See pricing</a>
+      <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> API docs</a>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="sv">All PH networks</div><div class="sk">Globe · Smart · DITO · Sun · TNT · TM</div></div>
+    <div class="stat"><div class="sv">₱0.65</div><div class="sk">per credit · regular SMS = 1 credit per part</div></div>
+    <div class="stat"><div class="sv">No code needed</div><div class="sk">send from the dashboard or a CSV file</div></div>
+    <div class="stat"><div class="sv">Refunded</div><div class="sk">failed messages, per network report</div></div>
+  </section>
+
+  <section>
+    <p class="kick">What online stores send</p>
+    <h2 class="sec">The texts every order depends on.</h2>
+    <div class="grid">
+      <div class="card"><span class="pill">API · kind=otp</span>
+        <h3 style="margin-top:10px">OTPs for logins and checkout</h3>
+        <p>Write {otp} in your message and a code is generated for you — or pass your own code with your own expiry. One API call sends it on the priority route.</p>
+        <div class="sample">SMMSOFT: 482913 is your verification code. It expires in 5 minutes. Never share this code.</div></div>
+      <div class="card"><span class="pill">API · POST /api/send.php</span>
+        <h3 style="margin-top:10px">Order and shipping updates</h3>
+        <p>Confirm each order and tell buyers when it ships, straight from your order system. One message per update.</p>
+        <div class="sample">SMMSOFT: Order #1042 has shipped and should arrive in 2-3 days. Thank you for shopping with us!</div></div>
+      <div class="card"><span class="pill">DASHBOARD</span>
+        <h3 style="margin-top:10px">Promo alerts to your followers</h3>
+        <p>Announce sales and restocks to customers who follow your shop. Type the message once, send to your customer group.</p>
+        <div class="sample">SMMSOFT: Hi Ana, may 20% off ang shop ngayong weekend para sa followers namin. Order na habang may stock pa!</div></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">No developer? No problem</p>
+    <h2 class="sec">Send from the dashboard.</h2>
+    <p class="lead">Export your list from Excel or Google Sheets as a CSV — the number in the first column, the message in the second — and upload it. Every row can carry a different message.</p>
+    <div class="panel">
+      <p style="color:#fff;font-weight:600;margin-top:0">shipping-updates.csv</p>
+      <table>
+        <tr><th>number</th><th>message</th></tr>
+        <tr><td>09171234567</td><td>Hi Ana, your order #1042 has shipped. Arrives in 2-3 days.</td></tr>
+        <tr><td>09181234567</td><td>Hi Jose, your order #1043 is out for delivery today.</td></tr>
+        <tr><td>09271234567</td><td>Hi Liza, your order #1044 is ready for pickup.</td></tr>
+      </table>
+      <p style="color:var(--mut);font-size:13.5px;margin-bottom:0">Invalid rows are skipped. Every message and its status appear in your message history.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">One request</p>
+    <h2 class="sec">A checkout code in one request.</h2>
+    <p class="lead">Your system generates the order or the login; SMMSOFT delivers the code. Use kind=otp and the {otp} placeholder, and the platform fills in a fresh code.</p>
+    <div class="panel"><pre class="mono">$ curl -X POST https://YOUR-PLATFORM/api/send.php \
+  -d "apikey=YOUR_API_KEY" \
+  -d "number=09171234567" \
+  -d "kind=otp" \
+  -d "message=Your code is {otp}. Never share this code."
+
+{ "ok": true, "sent": 1, "cost": 2, "balance": 848 }</pre></div>
+  </section>
+  <section>
+    <p class="kick">Why SMMSOFT</p>
+    <h2 class="sec">Built for sellers who ship daily.</h2>
+    <div class="grid">
+      <div class="card"><div class="ic"><i class="fa-solid fa-id-badge"></i></div><h3>The SMMSOFT name as sender</h3><p>Buyers see the SMMSOFT sender name on every network, so the message reads as official — not a random number.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-list-check"></i></div><h3>Every status tracked</h3><p>Queued, Sent, Failed or Refunded — each message and its status stays in your history, per recipient.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-rotate-left"></i></div><h3>Failed means refunded</h3><p>When the network reports a message as failed, its credits go back to your balance automatically.</p></div>
+      <div class="card"><div class="ic"><i class="fa-solid fa-bolt"></i></div><h3>Priority route for codes</h3><p>OTP and priority messages skip the regular queue, so login and checkout codes arrive while the buyer is still on your page.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">Getting started</p>
+    <h2 class="sec">Live in three steps.</h2>
+    <div class="journey">
+      <div class="jstep"><div class="jn">01</div><h3>Create an account</h3><p>Register on the SMMSOFT platform. Your dashboard, contacts and API key are ready right away.</p></div>
+      <div class="jstep"><div class="jn">02</div><h3>Buy credits</h3><p>Pay by GCash from the Credits page and submit your reference number. Credits land on your balance once the payment is verified.</p></div>
+      <div class="jstep"><div class="jn">03</div><h3>Send under SMMSOFT</h3><p>Send order updates from the dashboard or your store system through the API — OTPs included, under the SMMSOFT name.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="kick">FAQ</p>
+    <h2 class="sec">Questions from online stores.</h2>
+    <details class="faq"><summary>How do OTPs work here?</summary><p>Send kind=otp in the API, or pick the OTP type in the dashboard. Write {otp} in the message and a code is generated for you, or pass your own code. OTP costs 2 credits per part because it rides the priority route.</p></details>
+    <details class="faq"><summary>Can I start without a developer?</summary><p>Yes. Order updates and promos can be sent from the dashboard or by CSV upload. The API is for when your store system should send automatically.</p></details>
+    <details class="faq"><summary>Am I charged for failed messages?</summary><p>No. When the network reports a message as failed, its credits are refunded to your balance.</p></details>
+    <details class="faq"><summary>Can I send promos to anyone?</summary><p>Send promos only to customers who agreed to hear from your shop — your buyers and followers. Unsolicited blasts to bought lists hurt your shop’s reputation and can get numbers blocked.</p></details>
+    <details class="faq"><summary>What does one order update cost?</summary><p>A regular message of up to 160 characters costs 1 credit — ₱0.65 — per recipient.</p></details>
+  </section>
+
+  <section class="ctaband">
+    <h2>Every code tracked. Every order updated.</h2>
+    <p>Credits from ₱0.65. No setup fees, no monthly fees — pay only for the messages you send.</p>
+    <div class="rowflex" style="justify-content:center">
+      <a class="btn" href="pricing.html"><i class="fa-solid fa-rocket"></i> See pricing</a>
+      <a class="btn ghost" href="api.html"><i class="fa-solid fa-code"></i> Read the API docs</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap">
+  SMMSOFT · SMS services for Philippine businesses · Sender name: SMMSOFT<br>
+  Also built for: <a href="for-barangays.html">Barangays &amp; LGUs</a> · <a href="for-schools.html">Schools</a> · <a href="for-sellers.html">Online sellers</a> · <a href="for-clinics.html">Clinics</a> · <a href="for-retail.html">Retail</a> · <a href="for-logistics.html">Logistics</a>
+</div></footer>
+<script src="assets/app.js"></script>
+</body>
+</html>
