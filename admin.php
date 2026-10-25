@@ -34,6 +34,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_check()) {
             db()->prepare('UPDATE topups SET status = "rejected", decided_at = NOW() WHERE id = ?')->execute([$tid]);
             $msg = 'Top-up rejected.';
         }
+    } elseif ($act === 'sender_add') {
+        senders_ensure();
+        $name = trim((string)($_POST['name'] ?? ''));
+        if (!preg_match('/^[A-Za-z0-9]{1,11}$/', $name)) $error = 'Sender names are 1–11 characters — letters and numbers only.';
+        else {
+            try {
+                db()->prepare('INSERT INTO sms_senders (name, is_default) VALUES (?, 0)')->execute([$name]);
+                $msg = 'Sender name added to the pool: ' . $name;
+            } catch (Throwable $ex) { $error = 'That sender name is already in the pool.'; }
+        }
+    } elseif ($act === 'sender_default') {
+        senders_ensure();
+        db()->exec('UPDATE sms_senders SET is_default = 0');
+        db()->prepare('UPDATE sms_senders SET is_default = 1 WHERE id = ?')->execute([(int)$_POST['sender_id']]);
+        $msg = 'Default sender name updated.';
+    } elseif ($act === 'sender_del') {
+        senders_ensure();
+        $sid = (int)$_POST['sender_id'];
+        $cnt = (int)db()->query('SELECT COUNT(*) FROM sms_senders')->fetchColumn();
+        if ($cnt <= 1) $error = 'The pool needs at least one sender name.';
+        else {
+            $st = db()->prepare('SELECT is_default FROM sms_senders WHERE id = ?');
+            $st->execute([$sid]); $wasDef = (int)($st->fetchColumn() ?: 0);
+            db()->prepare('DELETE FROM sms_senders WHERE id = ?')->execute([$sid]);
+            if ($wasDef) db()->exec('UPDATE sms_senders SET is_default = 1 ORDER BY id LIMIT 1');
+            $msg = 'Sender name removed from the pool.';
+        }
     } elseif ($act === 'settings') {
         foreach (['upstream_api_key','default_sender','price_per_credit','cost_regular','cost_priority','cost_otp','welcome_credits','payment_instructions'] as $k) {
             if (isset($_POST[$k])) setting_set($k, trim((string)$_POST[$k]));
@@ -48,7 +75,7 @@ if ($msg) flash('ok', $msg);
 if ($error) flash('err', $error);
 ?>
 <div class="rowflex" style="margin-bottom:14px">
-  <?php foreach (['overview'=>'Overview','users'=>'Users','topups'=>'Top-ups','messages'=>'All Messages','settings'=>'Platform Settings'] as $k=>$lbl): ?>
+  <?php foreach (['overview'=>'Overview','users'=>'Users','topups'=>'Top-ups','messages'=>'All Messages','senders'=>'Sender Names','settings'=>'Platform Settings'] as $k=>$lbl): ?>
   <a class="btn <?= $tab===$k?'':'ghost' ?> small" href="admin.php?tab=<?= $k ?>"><?= $lbl ?></a>
   <?php endforeach; ?>
 </div>
@@ -139,6 +166,46 @@ if ($error) flash('err', $error);
 </table></div></div>
 <?php endif; ?>
 
+<?php if ($tab === 'senders'):
+    senders_ensure();
+    $poolRows = db()->query('SELECT * FROM sms_senders ORDER BY is_default DESC, name ASC')->fetchAll();
+?>
+<div class="panel"><h2><i class="fa-solid fa-signature"></i> Sender Name Pool</h2>
+<p class="hint">Every customer picks a sender name from this pool when sending — on the web pages and through the API.
+A name only works once it is <b>approved on your Semaphore account</b> (max 11 characters, letters and numbers) — adding it here does not approve it upstream, so add names here only after the upstream approval comes through.</p>
+<div style="overflow-x:auto"><table>
+  <tr><th>Sender name</th><th>Default</th><th></th></tr>
+  <?php foreach ($poolRows as $s): ?>
+  <tr>
+    <td class="mono"><?= e($s['name']) ?></td>
+    <td><?= $s['is_default'] ? '<span class="pill ok">Default</span>' : '' ?></td>
+    <td>
+      <div class="rowflex">
+      <?php if (!$s['is_default']): ?>
+      <form method="post">
+        <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="act" value="sender_default">
+        <input type="hidden" name="sender_id" value="<?= (int)$s['id'] ?>">
+        <button class="btn ghost small" type="submit">Set default</button>
+      </form>
+      <?php endif; ?>
+      <form method="post" onsubmit="return confirm('Remove <?= e($s['name']) ?> from the pool?')">
+        <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="act" value="sender_del">
+        <input type="hidden" name="sender_id" value="<?= (int)$s['id'] ?>">
+        <button class="btn danger small" type="submit">Remove</button>
+      </form>
+      </div>
+    </td>
+  </tr>
+  <?php endforeach; ?>
+</table></div>
+<form method="post" class="rowflex mt">
+  <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="act" value="sender_add">
+  <input type="text" name="name" maxlength="11" placeholder="New sender name (max 11)" style="max-width:260px" required>
+  <button class="btn small" type="submit"><i class="fa-solid fa-plus"></i> Add to pool</button>
+</form>
+</div>
+<?php endif; ?>
+
 <?php if ($tab === 'settings'): ?>
 <div class="panel">
   <h2><i class="fa-solid fa-sliders"></i> Platform Settings</h2>
@@ -147,8 +214,9 @@ if ($error) flash('err', $error);
     <label>Upstream (Semaphore) API key — leave as-is to keep the saved one</label>
     <input type="text" name="upstream_api_key" value="<?= e(setting_get('upstream_api_key', '')) ?>" autocomplete="off">
     <p class="hint">Currently: <?= upstream_key() === '' ? 'NOT SET' : 'set' ?> (config.php value wins if filled). Your customers never see this key.</p>
-    <label>Sender name (approved on the upstream account, max 11 chars)</label>
+    <label>Fallback sender name (approved on the upstream account, max 11 chars)</label>
     <input type="text" name="default_sender" value="<?= e(setting_get('default_sender', 'SMMSOFT')) ?>" maxlength="11">
+    <p class="hint">Customers pick from the pool in the <b>Sender Names</b> tab — the pool's default is set there. This fallback is only used if the pool is ever empty.</p>
     <div class="grid2">
       <div><label>Price per credit (₱) — what customers pay</label>
       <input type="text" name="price_per_credit" value="<?= e(setting_get('price_per_credit', '0.65')) ?>"></div>

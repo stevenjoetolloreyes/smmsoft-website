@@ -62,6 +62,7 @@ if (kc) kc.addEventListener('click', function(){
     <tr><td class="mono">number</td><td>Yes</td><td>One PH number, or many separated by commas (max 1,000 per call)</td></tr>
     <tr><td class="mono">message</td><td>Yes</td><td>Your text. Long messages are split into parts; each part costs credits.</td></tr>
     <tr><td class="mono">kind</td><td>No</td><td><span class="mono">regular</span> (default), <span class="mono">priority</span>, or <span class="mono">otp</span></td></tr>
+    <tr><td class="mono">sender</td><td>No</td><td>A sender name from the approved pool — GET <span class="mono">/api/account.php</span> lists the pool. Omit to use the pool default; unknown names are rejected.</td></tr>
     <tr><td class="mono">otp_code</td><td>No</td><td>For kind=otp: your own code; replaces {otp} in the message. Omit to auto-generate.</td></tr>
   </table>
   <label>Example (cURL)</label>
@@ -70,7 +71,7 @@ if (kc) kc.addEventListener('click', function(){
   -d "number=09171234567" \
   -d "message=Hello from SMMSOFT API"</textarea>
   <label>Success response</label>
-  <textarea rows="4" readonly class="mono">{"ok":true,"sent":1,"cost":1,"balance":99,"message_ids":[12345]}</textarea>
+  <textarea rows="4" readonly class="mono">{"ok":true,"sent":1,"cost":1,"balance":99,"sender":"SMMSOFT","message_ids":[12345]}</textarea>
   <label>Check your balance</label>
   <textarea rows="2" readonly class="mono">GET <?= e($base) ?>/api/account.php?apikey=YOUR_KEY</textarea>
   <p class="hint">Errors return JSON like <span class="mono">{"ok":false,"error":"Insufficient credits..."}</span> with an HTTP status code.</p>

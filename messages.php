@@ -53,12 +53,13 @@ if ($note) flash('info', $note);
     <a class="btn ghost small" href="messages.php?refresh=1"><i class="fa-solid fa-rotate"></i> Refresh statuses</a>
   </form>
   <div style="overflow-x:auto" class="mt"><table>
-    <tr><th>ID</th><th>Recipient</th><th>Message</th><th>Network</th><th>Status</th><th>Credits</th><th>Via</th><th>When</th></tr>
+    <tr><th>ID</th><th>Recipient</th><th>Sender</th><th>Message</th><th>Network</th><th>Status</th><th>Credits</th><th>Via</th><th>When</th></tr>
     <?php if (!$rows): ?><tr><td colspan="8" class="hint">No messages found.</td></tr><?php endif; ?>
     <?php foreach ($rows as $m): ?>
     <tr>
       <td><?= e($m['semaphore_id'] ?? '—') ?></td>
       <td><?= e($m['recipient']) ?></td>
+      <td><?= e($m['sender_name'] ?: '—') ?></td>
       <td><?= e(mb_strimwidth((string)$m['message'], 0, 70, '…')) ?></td>
       <td><?= e($m['network'] ?: '—') ?></td>
       <td><?= status_pill($m['status']) ?></td>

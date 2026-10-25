@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         elseif ($message === '') $error = 'Message is empty.';
         elseif (stripos($message, 'TEST') === 0) $error = 'Messages starting with the word TEST are silently ignored by the network. Please change the first word.';
         else {
-            $res = smmsoft_send($uid, $valid, $message, $kind, $kind === 'otp' ? $code : null, 'web');
+            $res = smmsoft_send($uid, $valid, $message, $kind, $kind === 'otp' ? $code : null, 'web', trim((string)($_POST['sender'] ?? '')));
             if (!empty($res['error'])) $error = $res['error'];
             else {
                 $result = 'Sent/queued ' . $res['sent'] . ' message(s) · ' . $res['cost'] . ' credit(s) charged. New balance: ' . number_format(user_credits($uid)) . '.';
@@ -57,9 +57,14 @@ if ($error) flash('err', $error);
     <h2><i class="fa-solid fa-pen-to-square"></i> Message Details</h2>
     <form method="post">
       <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
-      <label>Sender name</label>
-      <input type="text" value="<?= e(upstream_sender()) ?>" disabled>
-      <p class="hint">Every message shows this sender name — never a random number.</p>
+      <label>Sender name — pick from the approved pool</label>
+      <?php $poolSenders = senders_pool(); $selSender = sender_pool_name($_POST['sender'] ?? '') ?: sender_default(); ?>
+      <select name="sender">
+        <?php foreach ($poolSenders as $sn): ?>
+        <option value="<?= e($sn) ?>" <?= $sn === $selSender ? 'selected' : '' ?>><?= e($sn) ?><?= $sn === sender_default() ? ' (default)' : '' ?></option>
+        <?php endforeach; ?>
+      </select>
+      <p class="hint">Recipients see this name as the sender — never a random number.</p>
       <label>Recipients — one per line, or separated by commas (PH numbers, 09xxxxxxxxx)</label>
       <textarea id="recipients" name="recipients" rows="4" placeholder="09171234567&#10;09981234567"><?= e($_POST['recipients'] ?? $prefill) ?></textarea>
       <label>Message type</label>

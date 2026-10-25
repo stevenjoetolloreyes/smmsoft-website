@@ -1,10 +1,11 @@
 <?php
 require_once __DIR__ . '/lib/db.php';
 require_once __DIR__ . '/lib/auth.php';
+require_once __DIR__ . '/lib/semaphore.php';
 if (current_user()) { header('Location: dashboard.php'); exit; }
 $price = (float)setting_get('price_per_credit', '0.65');
 $cR = (int)setting_get('cost_regular', '1'); $cP = (int)setting_get('cost_priority', '2'); $cO = (int)setting_get('cost_otp', '2');
-$sender = setting_get('default_sender', 'SMMSOFT');
+$sender = sender_default();
 $payNote = trim((string)setting_get('payment_instructions', ''));
 ?>
 <!DOCTYPE html>
@@ -29,7 +30,7 @@ $payNote = trim((string)setting_get('payment_instructions', ''));
   <section class="hero">
     <h1>Send SMS to any Philippine number —<br>from one simple dashboard.</h1>
     <p>Bulk messages, priority delivery, and OTP — with a developer API your apps can call.
-       Sender name: <b><?= e($sender) ?></b>. Credits never complicated: 1 regular SMS = <?= $cR ?> credit<?= $cR > 1 ? 's' : '' ?> per recipient.</p>
+       Sender name: <b><?= e($sender) ?></b> by default — or pick another from the approved pool each time you send. Credits never complicated: 1 regular SMS = <?= $cR ?> credit<?= $cR > 1 ? 's' : '' ?> per recipient.</p>
     <div class="rowflex mt">
       <a class="btn" href="register.php"><i class="fa-solid fa-rocket"></i> Start sending</a>
       <a class="btn ghost" href="login.php">I already have an account</a>
@@ -85,8 +86,8 @@ $payNote = trim((string)setting_get('payment_instructions', ''));
         <div class="s" style="font-size:14px;margin-top:8px">Connect your own apps and systems. Send SMS and check your balance programmatically, anytime.</div></div>
       <div class="card"><div class="k"><i class="fa-solid fa-wallet"></i> One wallet for all</div>
         <div class="s" style="font-size:14px;margin-top:8px">Dashboard sends, bulk uploads, and API calls all draw from the same credit balance. One top-up covers everything.</div></div>
-      <div class="card"><div class="k"><i class="fa-solid fa-signature"></i> One sender name</div>
-        <div class="s" style="font-size:14px;margin-top:8px">Recipients always see <b><?= e($sender) ?></b> as the sender — a name they can recognize, not a random mobile number.</div></div>
+      <div class="card"><div class="k"><i class="fa-solid fa-signature"></i> Sender name pool</div>
+        <div class="s" style="font-size:14px;margin-top:8px">Recipients see a name they can recognize, not a random mobile number — you pick it from the <b>approved pool</b> every time you send, on the web or through the API.</div></div>
     </div>
   </section>
 
@@ -115,7 +116,7 @@ $payNote = trim((string)setting_get('payment_instructions', ''));
   <section class="sect">
     <h2>Common questions</h2>
     <div class="faq"><h3>What name will recipients see as the sender?</h3>
-      <p>Every message goes out under the sender name <b><?= e($sender) ?></b>, so your customers see a consistent, recognizable name on all announcements, alerts, and codes.</p></div>
+      <p>You pick the sender name for every send from the platform's approved pool — the default is <b><?= e($sender) ?></b> — so recipients always see a consistent, recognizable name on your announcements, alerts, and codes, never a random number.</p></div>
     <div class="faq"><h3>How do I get credits?</h3>
       <p>Register, open the Credits page, and choose an amount. Pay using the payment instructions shown there<?php if ($payNote !== ''): ?> (currently: <?= e($payNote) ?>)<?php endif; ?>, then submit your payment reference. Your credits are added once the payment is verified.</p></div>
     <div class="faq"><h3>Which networks can I send to?</h3>

@@ -80,6 +80,16 @@ CREATE TABLE IF NOT EXISTS sms_contacts (
   INDEX idx_group (group_name)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS sms_senders (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(11) NOT NULL UNIQUE,
+  is_default TINYINT(1) NOT NULL DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- The sender pool: every customer picks a sender name from this list.
+INSERT IGNORE INTO sms_senders (name, is_default) VALUES ('SMMSOFT', 1);
+
 CREATE TABLE IF NOT EXISTS sms_settings (
   k VARCHAR(80) PRIMARY KEY,
   v TEXT NULL

@@ -7,9 +7,12 @@
 //   number   — one PH number or many, comma-separated (max 1,000 per call)
 //   message  — text; long messages split into parts, each part costs credits
 //   kind     — regular | priority | otp   (optional)
+//   sender   — optional; a sender name from the approved pool
+//              (GET /api/account.php lists the pool). Omit to use
+//              the pool default. Unknown names are rejected (422).
 //   otp_code — for kind=otp; replaces {otp}. Omit to auto-generate upstream.
 //
-// Success: {"ok":true,"sent":N,"cost":C,"balance":B,"message_ids":[...]}
+// Success: {"ok":true,"sent":N,"cost":C,"balance":B,"sender":"...","message_ids":[...]}
 // Error:   {"ok":false,"error":"..."} with HTTP 4xx/5xx.
 
 require_once __DIR__ . '/../lib/db.php';
@@ -43,9 +46,10 @@ if (!$nums) api_out(422, ['ok' => false, 'error' => 'No valid PH numbers (09xxxx
 if ($message === '') api_out(422, ['ok' => false, 'error' => 'Message is empty.']);
 if (stripos($message, 'TEST') === 0) api_out(422, ['ok' => false, 'error' => 'Messages starting with TEST are ignored by the network.']);
 
-$res = smmsoft_send((int)$user['id'], $nums, $message, $kind, $kind === 'otp' ? ($in['otp_code'] ?? null) : null, 'api');
+$sender = isset($in['sender']) ? trim((string)$in['sender']) : null;
+$res = smmsoft_send((int)$user['id'], $nums, $message, $kind, $kind === 'otp' ? ($in['otp_code'] ?? null) : null, 'api', $sender);
 if (!empty($res['error'])) {
-    $code = strpos($res['error'], 'Insufficient') === 0 ? 402 : 502;
+    $code = strpos($res['error'], 'Insufficient') === 0 ? 402 : (strpos($res['error'], 'Sender name') === 0 ? 422 : 502);
     api_out($code, ['ok' => false, 'error' => $res['error']]);
 }
 api_out(200, [
@@ -53,5 +57,6 @@ api_out(200, [
     'sent' => $res['sent'],
     'cost' => $res['cost'],
     'balance' => user_credits((int)$user['id']),
+    'sender' => $res['sender'] ?? sender_default(),
     'message_ids' => $res['message_ids'],
 ]);

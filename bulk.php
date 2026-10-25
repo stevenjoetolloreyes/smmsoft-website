@@ -30,8 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES['csv']['tmp_name']))
         if (!$rows) $error = 'No valid rows found. Format: number,message (one per line).';
         else {
             $ok = 0; $stopErr = '';
+            $bulkSender = trim((string)($_POST['sender'] ?? ''));
             foreach ($rows as $r) {
-                $res = smmsoft_send($uid, [$r[0]], $r[1], 'regular', null, 'web');
+                $res = smmsoft_send($uid, [$r[0]], $r[1], 'regular', null, 'web', $bulkSender);
                 if (!empty($res['error'])) { $stopErr = $res['error']; break; }
                 $ok += $res['sent'];
             }
@@ -63,6 +64,13 @@ if ($error) flash('err', $error);
     <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
     <label>CSV file (columns: number, message)</label>
     <input type="file" name="csv" accept=".csv,text/csv" required>
+    <label>Sender name — pick from the approved pool</label>
+    <?php $poolSenders = senders_pool(); $defSender = sender_default(); ?>
+    <select name="sender">
+      <?php foreach ($poolSenders as $sn): ?>
+      <option value="<?= e($sn) ?>" <?= $sn === $defSender ? 'selected' : '' ?>><?= e($sn) ?><?= $sn === $defSender ? ' (default)' : '' ?></option>
+      <?php endforeach; ?>
+    </select>
     <div class="mt"><button class="btn" type="submit"><i class="fa-solid fa-upload"></i> Upload &amp; Send</button></div>
     <p class="hint">Each row costs credits like a regular send. Sending stops automatically if your balance runs out.</p>
   </form>
