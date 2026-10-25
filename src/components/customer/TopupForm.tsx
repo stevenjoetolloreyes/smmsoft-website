@@ -4,6 +4,7 @@ import { useActionState, useState , useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { topupAction } from "@/lib/actions-customer";
 import { emptyActionState } from "@/lib/action-state";
+import {Send} from "lucide-react";
 
 function formatPeso(n: number): string {
   return `₱${n.toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -59,7 +60,7 @@ export default function TopupForm({
       <input type="text" name="pay_ref" placeholder="e.g. GCash ref no." />
       <div className="mt">
         <button className="btn" type="submit" disabled={isPending}>
-          <i className="fa-solid fa-paper-plane" /> {isPending ? "Submitting…" : "Submit top-up request"}
+          <Send aria-hidden="true" /> {isPending ? "Submitting…" : "Submit top-up request"}
         </button>
       </div>
     </form>

@@ -1,8 +1,25 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import {
+  CircleUser,
+  Coins,
+  FileSpreadsheet,
+  KeyRound,
+  LayoutDashboard,
+  LogOut,
+  MessageSquare,
+  RadioTower,
+  Send,
+  Settings,
+  ShieldCheck,
+  Users,
+  Wallet,
+  type LucideIcon,
+} from "lucide-react";
 import type { SessionUser } from "@/lib/auth";
 import { userCredits } from "@/lib/sms";
 import { NavClose, NavToggle } from "./NavToggle";
+import SidebarToggle from "./SidebarToggle";
 
 export type NavKey =
   | "dashboard"
@@ -15,23 +32,29 @@ export type NavKey =
   | "settings"
   | "admin";
 
-const NAV: { section: string; href: string; key: NavKey; icon: string; label: string }[] = [
-  { section: "Messaging", href: "/dashboard", key: "dashboard", icon: "fa-gauge-high", label: "Dashboard" },
-  { section: "Messaging", href: "/send", key: "send", icon: "fa-paper-plane", label: "Send SMS" },
-  { section: "Messaging", href: "/bulk", key: "bulk", icon: "fa-file-csv", label: "Bulk via CSV" },
-  { section: "Messaging", href: "/messages", key: "messages", icon: "fa-envelope-open-text", label: "Messages" },
-  { section: "Messaging", href: "/contacts", key: "contacts", icon: "fa-address-book", label: "Contacts" },
-  { section: "Account", href: "/credits", key: "credits", icon: "fa-wallet", label: "Credits" },
-  { section: "Account", href: "/api-access", key: "api", icon: "fa-code", label: "API Access" },
-  { section: "Account", href: "/settings", key: "settings", icon: "fa-gear", label: "Settings" },
-  { section: "Platform", href: "/admin", key: "admin", icon: "fa-user-shield", label: "Admin Panel" },
+/**
+ * Nav groups follow the redesign prompt, adapted to the routes this app
+ * actually has. No page is invented: Messages covers message history,
+ * Credits covers top-ups + credit history, Settings covers profile, and
+ * the Admin Panel stays admin-only. Every href below is a real route.
+ */
+const NAV: { section: string; href: string; key: NavKey; icon: LucideIcon; label: string }[] = [
+  { section: "Overview", href: "/dashboard", key: "dashboard", icon: LayoutDashboard, label: "Dashboard" },
+  { section: "Messaging", href: "/send", key: "send", icon: Send, label: "Send SMS" },
+  { section: "Messaging", href: "/bulk", key: "bulk", icon: FileSpreadsheet, label: "Bulk via CSV" },
+  { section: "Messaging", href: "/messages", key: "messages", icon: MessageSquare, label: "Messages" },
+  { section: "Contacts", href: "/contacts", key: "contacts", icon: Users, label: "Contacts" },
+  { section: "Developer", href: "/api-access", key: "api", icon: KeyRound, label: "API Access" },
+  { section: "Credits & Billing", href: "/credits", key: "credits", icon: Wallet, label: "Credits" },
+  { section: "Account", href: "/settings", key: "settings", icon: Settings, label: "Settings" },
+  { section: "Platform", href: "/admin", key: "admin", icon: ShieldCheck, label: "Admin Panel" },
 ];
 
 /**
- * App shell — faithful port of PHP lib/layout.php layout_head/layout_foot.
- * Pages render <AppShell title active user>…children…</AppShell> and must
- * already have redirected unauthenticated visitors to /login (or /admin
- * pages to /login when not admin).
+ * App shell — same contract as before: pages render
+ * <AppShell title active user>…children…</AppShell> and must already have
+ * redirected unauthenticated visitors to /login (or /admin pages to
+ * /login when not admin). Only the presentation changed.
  */
 export default async function AppShell({
   title,
@@ -45,22 +68,39 @@ export default async function AppShell({
   children: ReactNode;
 }) {
   const credits = await userCredits(user.id);
-  const sections = ["Messaging", "Account", ...(user.isAdmin ? ["Platform"] : [])];
+  const sections = [
+    "Overview",
+    "Messaging",
+    "Contacts",
+    "Developer",
+    "Credits & Billing",
+    "Account",
+    ...(user.isAdmin ? ["Platform"] : []),
+  ];
 
   return (
     <div className="shell">
       <aside className="sidebar" id="sidebar">
-        <div className="brand">
-          <i className="fa-solid fa-tower-broadcast" /> SMMSOFT
+        <div className="brand-row">
+          <div className="brand">
+            <RadioTower aria-hidden="true" /> SMMSOFT
+          </div>
+          <SidebarToggle />
         </div>
         <NavClose />
-        <nav>
+        <nav aria-label="Main navigation">
           {sections.map((section) => (
             <span key={section}>
               <div className="nav-label">{section}</div>
               {NAV.filter((n) => n.section === section).map((n) => (
-                <Link key={n.key} href={n.href} className={active === n.key ? "on" : ""}>
-                  <i className={`fa-solid ${n.icon}`} /> {n.label}
+                <Link
+                  key={n.key}
+                  href={n.href}
+                  title={n.label}
+                  aria-current={active === n.key ? "page" : undefined}
+                  className={active === n.key ? "on" : ""}
+                >
+                  <n.icon aria-hidden="true" /> {n.label}
                 </Link>
               ))}
             </span>
@@ -69,8 +109,8 @@ export default async function AppShell({
         <div className="side-user">
           <div className="su-name">{user.name}</div>
           <div className="su-mail">{user.email}</div>
-          <Link className="su-out" href="/logout" prefetch={false}>
-            <i className="fa-solid fa-right-from-bracket" /> Logout
+          <Link className="su-out" href="/logout" prefetch={false} title="Logout">
+            <LogOut aria-hidden="true" /> Logout
           </Link>
         </div>
       </aside>
@@ -80,10 +120,10 @@ export default async function AppShell({
           <h1>{title}</h1>
           <div className="top-right">
             <Link className="bal-pill" href="/credits">
-              <i className="fa-solid fa-coins" /> Credits&nbsp;<b>{credits.toLocaleString("en-PH")}</b>
+              <Coins aria-hidden="true" /> Credits&nbsp;<b>{credits.toLocaleString("en-PH")}</b>
             </Link>
             <span className="user-chip">
-              <i className="fa-solid fa-circle-user" /> {user.name}
+              <CircleUser aria-hidden="true" /> {user.name}
             </span>
           </div>
         </div>

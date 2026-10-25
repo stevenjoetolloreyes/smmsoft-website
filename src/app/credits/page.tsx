@@ -8,6 +8,7 @@ import { getDb } from "@/lib/db";
 import { creditTransactions, topups } from "@/lib/schema";
 import { settingFloat, settingGet, settingInt } from "@/lib/settings";
 import { formatDateTime, formatInt, formatPeso, userCredits } from "@/lib/sms";
+import {Coins, History, KeyRound, PlusCircle, Receipt, Send, Zap} from "lucide-react";
 
 function firstParam(v: string | string[] | undefined): string {
   return Array.isArray(v) ? (v[0] ?? "") : (v ?? "");
@@ -58,28 +59,28 @@ export default async function CreditsPage({
       <div className="cards">
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-coins" /> Balance
+            <Coins aria-hidden="true" /> Balance
           </div>
           <div className="v">{formatInt(balance)} credits</div>
           <div className="s">{formatPeso(price)} per credit</div>
         </div>
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-paper-plane" /> Regular SMS
+            <Send aria-hidden="true" /> Regular SMS
           </div>
           <div className="v">{costRegular} credit</div>
           <div className="s">per 160-char part, per recipient</div>
         </div>
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-bolt" /> Priority
+            <Zap aria-hidden="true" /> Priority
           </div>
           <div className="v">{costPriority} credits</div>
           <div className="s">per part, skips the queue</div>
         </div>
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-key" /> OTP
+            <KeyRound aria-hidden="true" /> OTP
           </div>
           <div className="v">{costOtp} credits</div>
           <div className="s">per part, dedicated route</div>
@@ -88,7 +89,7 @@ export default async function CreditsPage({
       <div className="grid2">
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-cart-plus" /> Buy Credits
+            <PlusCircle aria-hidden="true" /> Buy Credits
           </h2>
           <p className="hint">
             {instructions.split("\n").map((line, i) => (
@@ -102,8 +103,9 @@ export default async function CreditsPage({
           {myTopups.length > 0 && (
             <>
               <h2 className="mt">
-                <i className="fa-solid fa-clock-rotate-left" /> My Requests
+                <History aria-hidden="true" /> My Requests
               </h2>
+              <div className="tablewrap">
               <table>
                 <tbody>
                   <tr>
@@ -126,17 +128,18 @@ export default async function CreditsPage({
                   ))}
                 </tbody>
               </table>
+              </div>
             </>
           )}
         </div>
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-receipt" /> Credit History
+            <Receipt aria-hidden="true" /> Credit History
           </h2>
           {txns.length === 0 ? (
             <p className="hint">No transactions yet.</p>
           ) : (
-            <div style={{ overflowX: "auto" }}>
+            <div className="tablewrap">
               <table>
                 <tbody>
                   <tr>

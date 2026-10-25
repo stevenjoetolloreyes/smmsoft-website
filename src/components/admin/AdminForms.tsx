@@ -12,6 +12,7 @@ import {
   setUserStatus,
   type AdminActionResult,
 } from '@/lib/actions-admin';
+import { Plus, Save } from "lucide-react";
 
 function Flash({ result }: { result: AdminActionResult | null }) {
   if (!result) return null;
@@ -162,7 +163,7 @@ export function SenderAddForm() {
           required
         />
         <button className="btn small" type="submit" disabled={pending}>
-          <i className="fa-solid fa-plus" /> Add to pool
+          <Plus aria-hidden="true" /> Add to pool
         </button>
       </form>
       <Flash result={result} />
@@ -309,7 +310,7 @@ export function PlatformSettingsForm({ initial }: { initial: PlatformSettingsVal
       />
       <div className="mt">
         <button className="btn" type="submit" disabled={pending}>
-          <i className="fa-solid fa-floppy-disk" /> Save settings
+          <Save aria-hidden="true" /> Save settings
         </button>
       </div>
       <Flash result={result} />

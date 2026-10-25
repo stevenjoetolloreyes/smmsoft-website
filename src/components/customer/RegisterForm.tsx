@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { registerAction } from "@/lib/actions-customer";
 import { emptyActionState } from "@/lib/action-state";
+import {UserPlus} from "lucide-react";
 
 export default function RegisterForm() {
   const [state, action, isPending] = useActionState(registerAction, emptyActionState);
@@ -22,7 +23,7 @@ export default function RegisterForm() {
       <input type="password" name="confirm" required />
       <div className="mt">
         <button className="btn" type="submit" style={{ width: "100%", justifyContent: "center" }} disabled={isPending}>
-          <i className="fa-solid fa-user-plus" /> {isPending ? "Creating account…" : "Create account"}
+          <UserPlus aria-hidden="true" /> {isPending ? "Creating account…" : "Create account"}
         </button>
       </div>
       <p className="hint">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import {Menu, X} from "lucide-react";
 
 /**
  * Mobile sidebar drawer toggle (PHP assets/app.js behavior):
@@ -21,7 +22,7 @@ export function NavToggle() {
           document.getElementById("backdrop")?.classList.add("on");
         }}
       >
-        <i className="fa-solid fa-bars" />
+        <Menu aria-hidden="true" />
       </button>
       {open && (
         <div
@@ -49,7 +50,7 @@ export function NavClose() {
         document.getElementById("backdrop")?.classList.remove("on");
       }}
     >
-      <i className="fa-solid fa-xmark" />
+      <X aria-hidden="true" />
     </button>
   );
 }

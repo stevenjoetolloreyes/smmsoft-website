@@ -9,6 +9,7 @@ import { smsContacts } from "@/lib/schema";
 import { sendersPool, senderDefault } from "@/lib/server/send";
 import { settingInt } from "@/lib/settings";
 import { userCredits } from "@/lib/sms";
+import {Layers, ShieldHalf, SquarePen} from "lucide-react";
 
 function firstParam(v: string | string[] | undefined): string {
   return Array.isArray(v) ? (v[0] ?? "") : (v ?? "");
@@ -57,14 +58,14 @@ export default async function SendPage({
       <div className="send-grid">
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-pen-to-square" /> Message Details
+            <SquarePen aria-hidden="true" /> Message Details
           </h2>
           <SendForm senders={pool} defaultSender={def} costs={costs} balance={balance} prefill={prefill} />
         </div>
         <div className="send-side">
           <div className="panel">
             <h2>
-              <i className="fa-solid fa-layer-group" /> Message Types
+              <Layers aria-hidden="true" /> Message Types
             </h2>
             <ul className="type-list">
               <li>
@@ -84,7 +85,7 @@ export default async function SendPage({
           </div>
           <div className="panel">
             <h2>
-              <i className="fa-solid fa-shield-halved" /> Tips for Clean Delivery
+              <ShieldHalf aria-hidden="true" /> Tips for Clean Delivery
             </h2>
             <ul className="tips">
               <li>Write clearly, like a message from your business — proper words, normal capitalization.</li>

@@ -10,6 +10,7 @@ import {
   groupSendAction,
 } from "@/lib/actions-customer";
 import { emptyActionState } from "@/lib/action-state";
+import {Layers, Pencil, Plus, Save, Send, SquarePen, Trash2, UserPlus, Users} from "lucide-react";
 
 export type ContactRow = { id: number; name: string; number: string; groupName: string };
 export type GroupRow = { name: string; count: number };
@@ -55,7 +56,7 @@ export default function ContactForms({
       <div className="grid2">
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-user-plus" /> Add Contact
+            <UserPlus aria-hidden="true" /> Add Contact
           </h2>
           <form action={addAction}>
             <label>Name</label>
@@ -71,14 +72,14 @@ export default function ContactForms({
             </datalist>
             <div className="mt">
               <button className="btn" type="submit" disabled={addPending}>
-                <i className="fa-solid fa-plus" /> Add
+                <Plus aria-hidden="true" /> Add
               </button>
             </div>
           </form>
         </div>
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-layer-group" /> Groups
+            <Layers aria-hidden="true" /> Groups
           </h2>
           {groups.length === 0 && <p className="hint">No groups yet.</p>}
           {groups.map((g) => (
@@ -91,7 +92,7 @@ export default function ContactForms({
                 {g.name} <span className="hint">({g.count})</span>
               </span>
               <Link className="btn ghost small" href={`/send?group=${encodeURIComponent(g.name)}`}>
-                <i className="fa-solid fa-paper-plane" /> Send to group
+                <Send aria-hidden="true" /> Send to group
               </Link>
             </div>
           ))}
@@ -100,7 +101,7 @@ export default function ContactForms({
 
       <div className="panel">
         <h2>
-          <i className="fa-solid fa-paper-plane" /> Text a Group
+          <Send aria-hidden="true" /> Text a Group
         </h2>
         <Flash message={groupState.message} ok={groupState.ok} />
         <form action={groupAction}>
@@ -131,7 +132,7 @@ export default function ContactForms({
           <textarea name="message" rows={4} required />
           <div className="mt">
             <button className="btn" type="submit" disabled={groupPending || groups.length === 0}>
-              <i className="fa-solid fa-paper-plane" /> Send to group
+              <Send aria-hidden="true" /> Send to group
             </button>
           </div>
         </form>
@@ -140,7 +141,7 @@ export default function ContactForms({
       {editing && (
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-pen-to-square" /> Edit Contact
+            <SquarePen aria-hidden="true" /> Edit Contact
           </h2>
           <form action={editAction}>
             <input type="hidden" name="id" value={editing.id} />
@@ -152,7 +153,7 @@ export default function ContactForms({
             <input type="text" name="group_name" value={editGroup} onChange={(e) => setEditGroup(e.target.value)} list="grouplist" />
             <div className="mt rowflex">
               <button className="btn" type="submit" disabled={editPending}>
-                <i className="fa-solid fa-floppy-disk" /> Save
+                <Save aria-hidden="true" /> Save
               </button>
               <button className="btn ghost" type="button" onClick={() => setEditingId(null)}>
                 Cancel
@@ -164,9 +165,9 @@ export default function ContactForms({
 
       <div className="panel">
         <h2>
-          <i className="fa-solid fa-address-book" /> All Contacts ({contacts.length})
+          <Users aria-hidden="true" /> All Contacts ({contacts.length})
         </h2>
-        <div style={{ overflowX: "auto" }}>
+        <div className="tablewrap">
           <table>
             <tbody>
               <tr>
@@ -182,7 +183,7 @@ export default function ContactForms({
                   <td>{c.groupName}</td>
                   <td className="rowflex">
                     <Link className="btn ghost small" href={`/send?to=${encodeURIComponent(c.number)}`}>
-                      <i className="fa-solid fa-paper-plane" /> Text
+                      <Send aria-hidden="true" /> Text
                     </Link>
                     <button
                       className="btn ghost small"
@@ -194,7 +195,7 @@ export default function ContactForms({
                         setEditGroup(c.groupName);
                       }}
                     >
-                      <i className="fa-solid fa-pen" /> Edit
+                      <Pencil aria-hidden="true" /> Edit
                     </button>
                     <form
                       action={deleteAction}
@@ -203,8 +204,8 @@ export default function ContactForms({
                       }}
                     >
                       <input type="hidden" name="id" value={c.id} />
-                      <button className="btn danger small" type="submit" disabled={deletePending}>
-                        <i className="fa-solid fa-trash" />
+                      <button className="btn danger small" type="submit" disabled={deletePending} aria-label="Delete contact">
+                        <Trash2 aria-hidden="true" />
                       </button>
                     </form>
                   </td>

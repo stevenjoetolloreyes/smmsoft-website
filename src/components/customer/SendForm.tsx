@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { sendAction } from "@/lib/actions-customer";
 import { emptyActionState } from "@/lib/action-state";
+import {Send} from "lucide-react";
 
 /** Client mirror of ph_normalize: strip non-digits except +, +63/63 -> 0 prefix. */
 function normalizeClient(raw: string): string | null {
@@ -117,7 +118,7 @@ export default function SendForm({
       </div>
       <div className="mt">
         <button className="btn" type="submit" disabled={isPending}>
-          <i className="fa-solid fa-paper-plane" /> {isPending ? "Sending…" : "Send message"}
+          <Send aria-hidden="true" /> {isPending ? "Sending…" : "Send message"}
         </button>
       </div>
       <p className="hint">

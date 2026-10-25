@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import {Wallet} from "lucide-react";
 
 function formatPeso(n: number): string {
   return `₱${n.toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -35,7 +36,7 @@ export default function DashboardTopup({ price, balance }: { price: number; bala
       </ul>
       <div className="mt">
         <Link className="btn" href={`/credits?credits=${n}`}>
-          <i className="fa-solid fa-wallet" /> Continue to top up
+          <Wallet aria-hidden="true" /> Continue to top up
         </Link>
       </div>
     </>

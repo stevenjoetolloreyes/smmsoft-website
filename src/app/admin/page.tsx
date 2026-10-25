@@ -17,6 +17,7 @@ import { upstreamKey } from '@/lib/server/upstream';
 import { upstreamBalance } from '@/lib/server/upstream';
 import { settingGet } from '@/lib/settings';
 import { formatDateTime, formatInt } from '@/lib/sms';
+import {Banknote, Coins, Mail, MailOpen, RadioTower, Signature, SlidersHorizontal, Users} from "lucide-react";
 
 const TABS = [
   { k: 'overview', label: 'Overview' },
@@ -218,28 +219,28 @@ export default async function AdminPage({
         <div className="cards">
           <div className="card">
             <div className="k">
-              <i className="fa-solid fa-users" /> Customers
+              <Users aria-hidden="true" /> Customers
             </div>
             <div className="v">{formatInt(overview.customers)}</div>
             <div className="s">{overview.pendingTopups} top-up(s) waiting</div>
           </div>
           <div className="card">
             <div className="k">
-              <i className="fa-solid fa-envelope" /> Messages (all)
+              <Mail aria-hidden="true" /> Messages (all)
             </div>
             <div className="v">{formatInt(overview.msgs)}</div>
             <div className="s">{formatInt(overview.sent)} sent</div>
           </div>
           <div className="card">
             <div className="k">
-              <i className="fa-solid fa-coins" /> Credits consumed
+              <Coins aria-hidden="true" /> Credits consumed
             </div>
             <div className="v">{formatInt(overview.creditsConsumed)}</div>
             <div className="s">across all customers</div>
           </div>
           <div className="card">
             <div className="k">
-              <i className="fa-solid fa-tower-broadcast" /> Upstream balance
+              <RadioTower aria-hidden="true" /> Upstream balance
             </div>
             <div className="v">{overview.upBal === null ? '—' : formatInt(overview.upBal)}</div>
             <div className="s">your wholesale Semaphore credits</div>
@@ -250,9 +251,9 @@ export default async function AdminPage({
       {tab === 'users' && (
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-users" /> Users
+            <Users aria-hidden="true" /> Users
           </h2>
-          <div style={{ overflowX: 'auto' }}>
+          <div className="tablewrap">
             <table>
               <thead>
                 <tr>
@@ -310,9 +311,9 @@ export default async function AdminPage({
       {tab === 'topups' && (
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-money-bill-wave" /> Top-up Requests
+            <Banknote aria-hidden="true" /> Top-up Requests
           </h2>
-          <div style={{ overflowX: 'auto' }}>
+          <div className="tablewrap">
             <table>
               <thead>
                 <tr>
@@ -354,9 +355,9 @@ export default async function AdminPage({
       {tab === 'messages' && (
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-envelope-open-text" /> Latest 100 messages (all users)
+            <MailOpen aria-hidden="true" /> Latest 100 messages (all users)
           </h2>
-          <div style={{ overflowX: 'auto' }}>
+          <div className="tablewrap">
             <table>
               <thead>
                 <tr>
@@ -392,7 +393,7 @@ export default async function AdminPage({
       {tab === 'senders' && (
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-signature" /> Sender Name Pool
+            <Signature aria-hidden="true" /> Sender Name Pool
           </h2>
           <p className="hint">
             Every customer picks a sender name from this pool when sending — on the web pages
@@ -400,7 +401,7 @@ export default async function AdminPage({
             account</b> (max 11 characters, letters and numbers) — adding it here does not
             approve it upstream, so add names here only after the upstream approval comes through.
           </p>
-          <div style={{ overflowX: 'auto' }}>
+          <div className="tablewrap">
             <table>
               <thead>
                 <tr>
@@ -429,7 +430,7 @@ export default async function AdminPage({
       {tab === 'settings' && settingsInitial && (
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-sliders" /> Platform Settings
+            <SlidersHorizontal aria-hidden="true" /> Platform Settings
           </h2>
           <PlatformSettingsForm initial={settingsInitial} />
         </div>

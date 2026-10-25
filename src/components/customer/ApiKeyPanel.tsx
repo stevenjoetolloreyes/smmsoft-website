@@ -4,6 +4,7 @@ import { useActionState, useState , useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { regenerateApiKeyAction } from "@/lib/actions-customer";
 import { emptyActionState } from "@/lib/action-state";
+import { Check, Copy, Eye, EyeOff, KeyRound, RotateCw, Send } from "lucide-react";
 
 export default function ApiKeyPanel({
   apiKey,
@@ -48,12 +49,12 @@ export default function ApiKeyPanel({
     <>
       <div className="panel">
         <h2>
-          <i className="fa-solid fa-key" /> Your API Key
+          <KeyRound aria-hidden="true" /> Your API Key
         </h2>
         {state.message !== "" && (
           <div className={`flash ${state.ok ? "ok" : "err"}`}>{state.message}</div>
         )}
-        <div style={{ overflowX: "auto" }}>
+        <div className="tablewrap">
           <table>
             <tbody>
               <tr>
@@ -69,10 +70,10 @@ export default function ApiKeyPanel({
                 <td>
                   <div className="rowflex">
                     <button className="btn small ghost" type="button" onClick={() => setShown(!shown)}>
-                      <i className={`fa-solid ${shown ? "fa-eye-slash" : "fa-eye"}`} /> {shown ? "Hide" : "Show"}
+                      {shown ? <EyeOff aria-hidden="true" /> : <Eye aria-hidden="true" />} {shown ? "Hide" : "Show"}
                     </button>
                     <button className="btn small ghost" type="button" onClick={copyKey}>
-                      <i className={`fa-solid ${copied ? "fa-check" : "fa-copy"}`} /> {copied ? "Copied" : "Copy"}
+                      {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />} {copied ? "Copied" : "Copy"}
                     </button>
                     <form
                       action={action}
@@ -82,7 +83,7 @@ export default function ApiKeyPanel({
                       }}
                     >
                       <button className="btn small danger" type="submit" disabled={isPending}>
-                        <i className="fa-solid fa-rotate" /> Regenerate
+                        <RotateCw aria-hidden="true" /> Regenerate
                       </button>
                     </form>
                   </div>
@@ -96,7 +97,7 @@ export default function ApiKeyPanel({
 
       <div className="panel">
         <h2>
-          <i className="fa-solid fa-paper-plane" /> Send an SMS
+          <Send aria-hidden="true" /> Send an SMS
         </h2>
         <p className="hint">
           POST to <span className="mono">{baseUrl}/api/send</span> with these fields (form-encoded or JSON):

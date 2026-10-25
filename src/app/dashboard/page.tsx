@@ -9,6 +9,7 @@ import { smsContacts, smsMessages } from "@/lib/schema";
 import { senderDefault } from "@/lib/server/send";
 import { settingFloat } from "@/lib/settings";
 import { formatDateTime, formatInt, formatPeso, userCredits } from "@/lib/sms";
+import {ArrowRight, ChartColumn, ChartLine, Coins, ContactRound, History, KeyRound, Mail, MailOpen, PlusCircle, Send, Users, Wallet} from "lucide-react";
 
 function truncate(s: string, n: number): string {
   return s.length > n ? s.slice(0, n - 1) + "…" : s;
@@ -69,17 +70,17 @@ export default async function DashboardPage() {
       <p className="page-sub">Your balance, usage this month and quick links.</p>
       <div className="quicklinks">
         <Link className="btn" href="/send">
-          <i className="fa-solid fa-paper-plane" /> Send SMS
+          <Send aria-hidden="true" /> Send SMS
         </Link>
         <Link className="btn ghost" href="/api-access">
-          <i className="fa-solid fa-key" /> API key
+          <KeyRound aria-hidden="true" /> API key
         </Link>
         <Link className="btn ghost" href="/credits">
-          <i className="fa-solid fa-wallet" /> Buy credits
+          <Wallet aria-hidden="true" /> Buy credits
         </Link>
       </div>
       <div className="banner">
-        <i className="fa-solid fa-id-badge" />
+        <ContactRound aria-hidden="true" />
         <span>
           Your messages go out under the sender name <b>{sender}</b>, on Globe, Smart, DITO, Sun, TNT and TM.
         </span>
@@ -87,60 +88,60 @@ export default async function DashboardPage() {
       <div className="cards">
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-coins" /> Credits Balance
+            <Coins aria-hidden="true" /> Credits Balance
           </div>
           <div className="v">{formatInt(credits)}</div>
           <div className="s">≈ {formatPeso(credits * price)} worth of SMS</div>
           <Link className="card-link" href="/credits">
-            Buy credits <i className="fa-solid fa-arrow-right" />
+            Buy credits <ArrowRight aria-hidden="true" />
           </Link>
         </div>
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-envelope" /> Sent This Month
+            <Mail aria-hidden="true" /> Sent This Month
           </div>
           <div className="v">{formatInt(sentMonth)}</div>
           <div className="s">
             {formatInt(today)} sent today · {formatInt(total)} all time
           </div>
           <Link className="card-link" href="/messages">
-            Messages <i className="fa-solid fa-arrow-right" />
+            Messages <ArrowRight aria-hidden="true" />
           </Link>
         </div>
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-chart-simple" /> Credits Used This Month
+            <ChartColumn aria-hidden="true" /> Credits Used This Month
           </div>
           <div className="v">{formatInt(usedMonth)}</div>
           <div className="s">
             {formatInt(inflight)} queued / in flight · {formatInt(failed)} failed
           </div>
           <Link className="card-link" href="/credits">
-            Credit history <i className="fa-solid fa-arrow-right" />
+            Credit history <ArrowRight aria-hidden="true" />
           </Link>
         </div>
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-address-book" /> Contacts
+            <Users aria-hidden="true" /> Contacts
           </div>
           <div className="v">{formatInt(contactsCount)}</div>
           <div className="s">saved numbers and groups</div>
           <Link className="card-link" href="/contacts">
-            Contacts <i className="fa-solid fa-arrow-right" />
+            Contacts <ArrowRight aria-hidden="true" />
           </Link>
         </div>
       </div>
       <div className="grid2">
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-cart-plus" /> Top Up Credits
+            <PlusCircle aria-hidden="true" /> Top Up Credits
           </h2>
           <p className="hint">Credits are added once your GCash payment is verified. Top-ups are confirmed by the admin — no card needed.</p>
           <DashboardTopup price={price} balance={credits} />
         </div>
         <div className="panel">
           <h2>
-            <i className="fa-solid fa-chart-line" /> SMS &amp; Credits · {monthName}
+            <ChartLine aria-hidden="true" /> SMS &amp; Credits · {monthName}
           </h2>
           <ul className="breakdown">
             <li>
@@ -163,21 +164,21 @@ export default async function DashboardPage() {
           <p className="hint">Failed messages are refunded to your balance when the network reports them as failed.</p>
           <div className="mt">
             <Link className="btn ghost" href="/messages">
-              <i className="fa-solid fa-envelope-open-text" /> Open message history
+              <MailOpen aria-hidden="true" /> Open message history
             </Link>
           </div>
         </div>
       </div>
       <div className="panel">
         <h2>
-          <i className="fa-solid fa-clock-rotate-left" /> Recent Messages
+          <History aria-hidden="true" /> Recent Messages
         </h2>
         {recent.length === 0 ? (
           <p className="hint">
             No messages yet. Send your first one from <Link href="/send">Send SMS</Link>.
           </p>
         ) : (
-          <div style={{ overflowX: "auto" }}>
+          <div className="tablewrap">
             <table>
               <tbody>
                 <tr>

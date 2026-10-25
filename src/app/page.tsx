@@ -4,6 +4,7 @@ import { getSession } from "@/lib/auth";
 import { senderDefault } from "@/lib/server/send";
 import { settingFloat, settingGet, settingInt } from "@/lib/settings";
 import { formatPeso } from "@/lib/sms";
+import {Code, Coins, FileSpreadsheet, History, KeyRound, RadioTower, Rocket, Send, Signature, Users, Wallet, Zap} from "lucide-react";
 
 export default async function LandingPage() {
   const session = await getSession();
@@ -19,7 +20,7 @@ export default async function LandingPage() {
     <div className="landing">
       <header className="land-nav">
         <div className="brand">
-          <i className="fa-solid fa-tower-broadcast" /> SMMSOFT
+          <RadioTower aria-hidden="true" /> SMMSOFT
         </div>
         <div className="rowflex">
           <Link className="btn ghost small" href="/login">
@@ -43,7 +44,7 @@ export default async function LandingPage() {
         </p>
         <div className="rowflex mt">
           <Link className="btn" href="/register">
-            <i className="fa-solid fa-rocket" /> Start sending
+            <Rocket aria-hidden="true" /> Start sending
           </Link>
           <Link className="btn ghost" href="/login">
             I already have an account
@@ -57,7 +58,7 @@ export default async function LandingPage() {
       <section className="cards">
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-paper-plane" /> Web Sender
+            <Send aria-hidden="true" /> Web Sender
           </div>
           <div className="s" style={{ fontSize: 14, marginTop: 8 }}>
             Send from the dashboard to one number or thousands at once. Live credit counter while you type.
@@ -65,7 +66,7 @@ export default async function LandingPage() {
         </div>
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-bolt" /> Priority &amp; OTP
+            <Zap aria-hidden="true" /> Priority &amp; OTP
           </div>
           <div className="s" style={{ fontSize: 14, marginTop: 8 }}>
             Time-sensitive messages skip the queue ({cP} credits). Dedicated OTP route with auto-generated codes ({cO} credits).
@@ -73,7 +74,7 @@ export default async function LandingPage() {
         </div>
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-code" /> Developer API
+            <Code aria-hidden="true" /> Developer API
           </div>
           <div className="s" style={{ fontSize: 14, marginTop: 8 }}>
             One POST request sends an SMS. Your API key, your balance, full message history and delivery statuses.
@@ -81,7 +82,7 @@ export default async function LandingPage() {
         </div>
         <div className="card">
           <div className="k">
-            <i className="fa-solid fa-coins" /> Simple pricing
+            <Coins aria-hidden="true" /> Simple pricing
           </div>
           <div className="v" style={{ fontSize: 24 }}>
             {formatPeso(price)}
@@ -97,6 +98,7 @@ export default async function LandingPage() {
           Credits are the only currency inside SMMSOFT. Every send is charged per recipient, at the rates below — shown before
           you send, never after.
         </p>
+        <div className="tablewrap">
         <table className="mtable">
           <tbody>
             <tr>
@@ -131,6 +133,7 @@ export default async function LandingPage() {
             </tr>
           </tbody>
         </table>
+        </div>
       </section>
 
       <section className="sect">
@@ -162,7 +165,7 @@ export default async function LandingPage() {
         <div className="cards">
           <div className="card">
             <div className="k">
-              <i className="fa-solid fa-file-csv" /> Bulk via CSV
+              <FileSpreadsheet aria-hidden="true" /> Bulk via CSV
             </div>
             <div className="s" style={{ fontSize: 14, marginTop: 8 }}>
               Upload a spreadsheet of numbers and send to a whole list in one go — with personalization per row.
@@ -170,7 +173,7 @@ export default async function LandingPage() {
           </div>
           <div className="card">
             <div className="k">
-              <i className="fa-solid fa-address-book" /> Contacts &amp; groups
+              <Users aria-hidden="true" /> Contacts &amp; groups
             </div>
             <div className="s" style={{ fontSize: 14, marginTop: 8 }}>
               Save the numbers you message often and organize them into groups, so regular broadcasts take seconds.
@@ -178,7 +181,7 @@ export default async function LandingPage() {
           </div>
           <div className="card">
             <div className="k">
-              <i className="fa-solid fa-clock-rotate-left" /> Message history
+              <History aria-hidden="true" /> Message history
             </div>
             <div className="s" style={{ fontSize: 14, marginTop: 8 }}>
               Every send is recorded with its recipient, cost, and delivery status. Your credit ledger shows each top-up and deduction.
@@ -186,7 +189,7 @@ export default async function LandingPage() {
           </div>
           <div className="card">
             <div className="k">
-              <i className="fa-solid fa-key" /> Your own API key
+              <KeyRound aria-hidden="true" /> Your own API key
             </div>
             <div className="s" style={{ fontSize: 14, marginTop: 8 }}>
               Connect your own apps and systems. Send SMS and check your balance programmatically, anytime.
@@ -194,7 +197,7 @@ export default async function LandingPage() {
           </div>
           <div className="card">
             <div className="k">
-              <i className="fa-solid fa-wallet" /> One wallet for all
+              <Wallet aria-hidden="true" /> One wallet for all
             </div>
             <div className="s" style={{ fontSize: 14, marginTop: 8 }}>
               Dashboard sends, bulk uploads, and API calls all draw from the same credit balance. One top-up covers everything.
@@ -202,7 +205,7 @@ export default async function LandingPage() {
           </div>
           <div className="card">
             <div className="k">
-              <i className="fa-solid fa-signature" /> Sender name pool
+              <Signature aria-hidden="true" /> Sender name pool
             </div>
             <div className="s" style={{ fontSize: 14, marginTop: 8 }}>
               Recipients see a name they can recognize, not a random mobile number — you pick it from the <b>approved pool</b>{" "}
@@ -283,7 +286,7 @@ export default async function LandingPage() {
         <h2>Ready to send your first message?</h2>
         <p>Create a free account and be sending within minutes.</p>
         <Link className="btn" href="/register">
-          <i className="fa-solid fa-rocket" /> Create account
+          <Rocket aria-hidden="true" /> Create account
         </Link>
         <Link className="btn ghost" href="/login">
           Login

@@ -7,6 +7,7 @@ import { getSession } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { smsMessages } from "@/lib/schema";
 import { formatDateTime } from "@/lib/sms";
+import {Search} from "lucide-react";
 
 function firstParam(v: string | string[] | undefined): string {
   return Array.isArray(v) ? (v[0] ?? "") : (v ?? "");
@@ -73,13 +74,13 @@ export default async function MessagesPage({
           </select>
           <input type="text" name="q" placeholder="Search number or message" defaultValue={q} style={{ width: 220 }} />
           <button className="btn small" type="submit">
-            <i className="fa-solid fa-magnifying-glass" /> Filter
+            <Search aria-hidden="true" /> Filter
           </button>
         </form>
         <div className="mt">
           <RefreshButton />
         </div>
-        <div style={{ overflowX: "auto" }} className="mt">
+        <div className="mt tablewrap">
           <table>
             <tbody>
               <tr>
