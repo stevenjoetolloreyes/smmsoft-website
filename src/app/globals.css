@@ -26,7 +26,7 @@ button:disabled{cursor:not-allowed;opacity:.6}
 :focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:6px}
 
 /* ---------- Shell / sidebar ---------- */
-.shell{display:flex;min-height:100vh}
+.shell{display:flex;min-height:100vh;width:100%}
 .sidebar{width:240px;background:var(--card);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 12px calc(14px + env(safe-area-inset-bottom));position:fixed;inset:0 auto 0 0;z-index:30;overflow-y:auto;transition:width var(--ease)}
 .brand-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 6px 14px}
 .brand{font-weight:800;font-size:18px;color:var(--txt);display:flex;gap:10px;align-items:center;white-space:nowrap}
@@ -61,7 +61,7 @@ body.collapsed .su-name,.collapsed .su-mail,.collapsed .su-out{font-size:0}
 body.collapsed .su-out svg{width:18px;height:18px}
 
 /* ---------- Main / topbar ---------- */
-.main{flex:1;margin-left:240px;padding:22px 24px calc(40px + env(safe-area-inset-bottom));min-width:0;transition:margin-left var(--ease)}
+.main{flex:1;margin-left:240px;padding:24px 32px calc(40px + env(safe-area-inset-bottom));min-width:0;transition:margin-left var(--ease)}
 body.collapsed .main{margin-left:72px}
 .topbar{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;position:sticky;top:0;z-index:10;background:rgba(245,247,251,.92);backdrop-filter:blur(6px);padding:10px 0}
 .topbar h1{font-size:22px;letter-spacing:-.2px}
@@ -77,7 +77,15 @@ body.collapsed .main{margin-left:72px}
 @media(max-width:640px){.user-chip{display:none}.topbar h1{font-size:19px}}
 
 /* ---------- Cards / panels ---------- */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:18px}
+/* Metric/feature cards: content-determined columns (auto-fit collapses
+   empty tracks, so no unused columns). Column counts land on the spec
+   targets: 4 at >=1440px, 3 at 1024-1439px, 2 at 768-1023px, 1 stacked
+   below ~560px. A last row may hold fewer cards than a full row — normal
+   responsive-grid behaviour, never an empty column. */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:18px}
+/* Grid/flex children must be allowed to shrink, otherwise long unbroken
+   content (API keys, numbers) can force horizontal overflow. */
+.cards > *, .grid2 > *, .send-grid > *{min-width:0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);transition:box-shadow var(--ease),transform var(--ease)}
 .card:hover{box-shadow:var(--shadow-lg)}
 .card .k{color:var(--mut);font-size:13px;font-weight:600;display:flex;gap:9px;align-items:center}
@@ -163,7 +171,9 @@ tbody tr:hover{background:#F8FAFC}
 .login-box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px;width:100%;max-width:400px;box-shadow:var(--shadow-lg)}
 .login-box h1{font-size:20px;margin-bottom:4px}
 .login-box .brand{padding:0 0 12px;font-size:22px}
-.landing{max-width:1060px;margin:0 auto;padding:22px 18px calc(30px + env(safe-area-inset-bottom))}
+/* Landing is full-width like the app shell (no narrow centered wrapper).
+   Readable text blocks keep their own caps (.hero, .secsub, .faq). */
+.landing{width:100%;padding:28px 32px calc(30px + env(safe-area-inset-bottom))}
 .land-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .land-nav .brand{padding:0}
 .hero{padding:56px 0 30px;max-width:760px}
@@ -181,7 +191,7 @@ tbody tr:hover{background:#F8FAFC}
 .step .n{width:32px;height:32px;border-radius:50%;background:var(--grad);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
 .step h3{color:var(--txt);font-size:16px;margin-bottom:6px}
 .step p{color:var(--mut);font-size:14px;line-height:1.55}
-.faq{background:var(--card);border:1px solid var(--line);border-radius:var(--r-sm);padding:16px 18px;margin-top:10px;box-shadow:var(--shadow)}
+.faq{background:var(--card);border:1px solid var(--line);border-radius:var(--r-sm);padding:16px 18px;margin-top:10px;box-shadow:var(--shadow);max-width:900px}
 .faq h3{color:var(--txt);font-size:15.5px;margin-bottom:5px}
 .faq p{color:var(--mut);font-size:14px;line-height:1.6}
 .ctaband{text-align:center;background:var(--grad);border-radius:18px;padding:36px 22px;margin:36px 0 8px;color:#fff;box-shadow:0 12px 30px rgba(37,99,235,.30)}
@@ -224,7 +234,6 @@ tbody tr:hover{background:#F8FAFC}
   .main{padding:16px 12px calc(32px + env(safe-area-inset-bottom))}
   .panel{padding:16px}
   .card{padding:16px}
-  .cards{grid-template-columns:1fr 1fr}
   .card .v{font-size:24px}
   .hero{padding:36px 0 24px}
   .landing{padding-left:14px;padding-right:14px}
@@ -232,7 +241,6 @@ tbody tr:hover{background:#F8FAFC}
   input[type=text],input[type=email],input[type=password],input[type=file],select,textarea{font-size:16px}
 }
 @media(max-width:360px){
-  .cards{grid-template-columns:1fr}
   .topbar h1{font-size:18px}
   .bal-pill{font-size:12.5px;padding:7px 11px}
 }
