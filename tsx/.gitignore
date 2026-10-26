@@ -1,5 +1,0 @@
-node_modules/
-.next/
-local.db
-local.db-journal
-.env*.local
