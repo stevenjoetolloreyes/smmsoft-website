@@ -1,0 +1,1 @@
+ALTER TABLE `sms_messages` ADD `provider_ref` text;

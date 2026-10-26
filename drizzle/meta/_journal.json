@@ -8,6 +8,13 @@
       "when": 1792899179550,
       "tag": "0000_romantic_mantis",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1792983743919,
+      "tag": "0001_military_monster_badoon",
+      "breakpoints": true
     }
   ]
 }

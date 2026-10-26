@@ -67,10 +67,17 @@ function storeResults(
     const now = new Date();
     let n = 0;
     for (const m of results) {
-      if (!m || typeof m.message_id !== "number") continue;
+      if (!m) continue;
+      // Semaphore/mock rows carry a numeric message_id; UniSMS rows carry a
+      // string provider_ref instead. Either one stores a row; a row with
+      // neither is skipped (never charged).
+      const hasNumericId = typeof m.message_id === "number";
+      const hasRef = typeof m.provider_ref === "string" && m.provider_ref !== "";
+      if (!hasNumericId && !hasRef) continue;
       await db.insert(smsMessages).values({
         userId,
-        semaphoreId: m.message_id,
+        semaphoreId: hasNumericId ? m.message_id : null,
+        providerRef: hasRef ? (m.provider_ref as string) : null,
         recipient: String(m.recipient ?? ""),
         message: String(m.message ?? fallbackMessage),
         senderName: String(m.sender_name ?? ""),
@@ -138,20 +145,22 @@ export async function smmsoftSend(
     };
   }
   const sentIds: number[] = [];
+  let sentCount = 0;
   for (let i = 0; i < unique.length; i += 1000) {
     const chunk = unique.slice(i, i + 1000);
     const res = await upstreamSend(chunk, message, kind, code, useSender);
     if (!Array.isArray(res)) {
-      return { ok: false, error: `Upstream error: ${res.error}`, httpStatus: 502, partialSent: sentIds.length };
+      return { ok: false, error: `Upstream error: ${res.error}`, httpStatus: 502, partialSent: sentCount };
     }
     const stored = await storeResults(res, userId, message, kind, perRecipient, source);
+    sentCount += stored;
     const charge = perRecipient * stored;
     if (charge > 0) {
       await walletApply(userId, -charge, "send", `${kind[0].toUpperCase()}${kind.slice(1)} SMS x${stored}`);
     }
     for (const m of res) if (typeof m.message_id === "number") sentIds.push(m.message_id);
   }
-  return { ok: true, sent: sentIds.length, cost: total, message_ids: sentIds, sender: useSender };
+  return { ok: true, sent: sentCount, cost: total, message_ids: sentIds, sender: useSender };
 }
 
 /** Refresh helper for the Messages page (PHP ?refresh=1 behavior). */

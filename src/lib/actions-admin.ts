@@ -162,7 +162,9 @@ export async function setDefaultSender(id: number): Promise<AdminActionResult> {
 
 /**
  * Admin-only: save platform settings from the settings form.
- * An empty upstream_api_key keeps the existing stored key (never echoed).
+ * An empty upstream_api_key keeps the existing stored key (never echoed);
+ * an empty unisms_secret_key likewise keeps the existing UniSMS key.
+ * upstream_provider is "semaphore" unless exactly "unisms".
  * Invalid numeric values are rejected with an error, nothing is saved.
  */
 export async function savePlatformSettings(form: FormData): Promise<AdminActionResult> {
@@ -197,6 +199,10 @@ export async function savePlatformSettings(form: FormData): Promise<AdminActionR
 
   const upstreamKey = get('upstream_api_key');
   if (upstreamKey !== '') await settingSet('upstream_api_key', upstreamKey);
+  const unismsKey = get('unisms_secret_key');
+  if (unismsKey !== '') await settingSet('unisms_secret_key', unismsKey);
+  const providerRaw = get('upstream_provider');
+  await settingSet('upstream_provider', providerRaw === 'unisms' ? 'unisms' : 'semaphore');
   // default_sender IS in admin.php's settings form, so it is saved here too.
   await settingSet('default_sender', get('default_sender'));
   await settingSet('price_per_credit', String(price));

@@ -233,12 +233,14 @@ export type PlatformSettingsValues = {
   welcomeCredits: string;
   paymentInstructions: string;
   upstreamConfigured: boolean;
+  upstreamProvider: string;
+  unismsConfigured: boolean;
 };
 
 /**
- * Platform settings form. The upstream key input is ALWAYS rendered empty
- * (placeholder: leave blank to keep current key) — the stored key is never
- * prefilled, echoed, or masked from its value.
+ * Platform settings form. The upstream key inputs are ALWAYS rendered empty
+ * (placeholder: leave blank to keep current key) — the stored keys are never
+ * prefilled, echoed, or masked from their values.
  */
 export function PlatformSettingsForm({ initial }: { initial: PlatformSettingsValues }) {
   const router = useRouter();
@@ -256,6 +258,16 @@ export function PlatformSettingsForm({ initial }: { initial: PlatformSettingsVal
         });
       }}
     >
+      <label>Upstream provider</label>
+      <select name="upstream_provider" defaultValue={initial.upstreamProvider === 'unisms' ? 'unisms' : 'semaphore'}>
+        <option value="semaphore">Semaphore</option>
+        <option value="unisms">UniSMS</option>
+      </select>
+      <p className="hint">
+        Semaphore is the default. UniSMS sends through the UniSMS PH API
+        (unismsapi.com) — it needs its own secret key below plus an approved
+        sender ID on your UniSMS account.
+      </p>
       <label>Upstream (Semaphore) API key — leave blank to keep current key</label>
       <input
         type="text"
@@ -267,6 +279,19 @@ export function PlatformSettingsForm({ initial }: { initial: PlatformSettingsVal
       <p className="hint">
         Currently: {initial.upstreamConfigured ? 'configured' : 'NOT SET'}. If the
         SEMAPHORE_API_KEY environment variable is set, it takes precedence over the saved
+        setting. Your customers never see this key.
+      </p>
+      <label>Upstream (UniSMS) secret key — leave blank to keep current key</label>
+      <input
+        type="text"
+        name="unisms_secret_key"
+        defaultValue=""
+        placeholder="Leave blank to keep current key"
+        autoComplete="off"
+      />
+      <p className="hint">
+        Currently: {initial.unismsConfigured ? 'configured' : 'NOT SET'}. If the
+        UNISMS_SECRET_KEY environment variable is set, it takes precedence over the saved
         setting. Your customers never see this key.
       </p>
       <label>Fallback sender name (approved on the upstream account, max 11 chars)</label>

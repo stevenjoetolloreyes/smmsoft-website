@@ -19,6 +19,8 @@ function findDbUrl(): string | undefined {
 
 const DEFAULT_SETTINGS: [string, string][] = [
   ["upstream_api_key", ""],
+  ["upstream_provider", "semaphore"],
+  ["unisms_secret_key", ""],
   ["default_sender", "SMMSOFT"],
   ["price_per_credit", "0.65"],
   ["cost_regular", "1"],
@@ -98,6 +100,7 @@ CREATE TABLE "sms_messages" (
 	"id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	"user_id" integer NOT NULL,
 	"semaphore_id" integer,
+	"provider_ref" text,
 	"recipient" text NOT NULL,
 	"message" text NOT NULL,
 	"sender_name" text,
@@ -159,8 +162,11 @@ CREATE UNIQUE INDEX "users_api_key_unique" ON "users" ("api_key");`;
 /**
  * Applies the schema, tolerating a missing ./drizzle folder (Vercel
  * serverless). migrate() fails before applying anything when the journal
- * is unreadable, so the fallback is safe: if the schema is already there
- * (e.g. a later migrate() attempt after an embedded run), it just skips.
+ * is unreadable, so the fresh-database fallback below is safe. But an
+ * EXISTING database is not upgraded by the fallback — so columns added by
+ * later migrations must be listed in FALLBACK_COLUMN_ENSURES, or the first
+ * insert naming them fails with "no such column". ADD AN ENTRY THERE
+ * whenever a new migration adds a column (same rule as EMBEDDED_SCHEMA).
  */
 async function migrateSafe(db: DB): Promise<void> {
   try {
@@ -172,12 +178,36 @@ async function migrateSafe(db: DB): Promise<void> {
   const existing = await db.all(
     sql`SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'users'`,
   );
-  if (existing.length > 0) return;
-  for (const chunk of EMBEDDED_SCHEMA.split("--> statement-breakpoint")) {
-    const stmt = chunk.trim();
-    if (stmt) await db.run(sql.raw(stmt));
+  if (existing.length === 0) {
+    for (const chunk of EMBEDDED_SCHEMA.split("--> statement-breakpoint")) {
+      const stmt = chunk.trim();
+      if (stmt) await db.run(sql.raw(stmt));
+    }
+    return;
+  }
+  // Existing database: add any post-initial columns it predates.
+  // (Table/column names are code constants, never user input.)
+  for (const ensure of FALLBACK_COLUMN_ENSURES) {
+    const cols = (await db.all(
+      sql.raw(`PRAGMA table_info("${ensure.table}")`),
+    )) as { name?: unknown }[];
+    if (!cols.some((c) => c.name === ensure.column)) {
+      await db.run(sql.raw(ensure.ddl));
+    }
   }
 }
+
+/**
+ * Columns added by migrations after the initial schema, for existing
+ * databases the embedded fallback cannot migrate (see migrateSafe).
+ */
+const FALLBACK_COLUMN_ENSURES: { table: string; column: string; ddl: string }[] = [
+  {
+    table: "sms_messages",
+    column: "provider_ref",
+    ddl: `ALTER TABLE "sms_messages" ADD COLUMN "provider_ref" text`,
+  },
+];
 
 /**
  * Returns the shared Drizzle client. The first call applies the SQL

@@ -56,6 +56,7 @@ export const smsMessages = sqliteTable(
     id: integer("id").primaryKey({ autoIncrement: true }),
     userId: integer("user_id").notNull(),
     semaphoreId: integer("semaphore_id"),
+    providerRef: text("provider_ref"), // UniSMS reference_id (string); Semaphore rows use semaphore_id
     recipient: text("recipient").notNull(),
     message: text("message").notNull(),
     senderName: text("sender_name"),

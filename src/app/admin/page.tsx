@@ -178,9 +178,11 @@ export default async function AdminPage({
     welcomeCredits: string;
     paymentInstructions: string;
     upstreamConfigured: boolean;
+    upstreamProvider: string;
+    unismsConfigured: boolean;
   } | null = null;
   if (tab === 'settings') {
-    const [defaultSender, pricePerCredit, costRegular, costPriority, costOtp, welcomeCredits, paymentInstructions, storedKey] =
+    const [defaultSender, pricePerCredit, costRegular, costPriority, costOtp, welcomeCredits, paymentInstructions, storedKey, upstreamProvider, storedUnismsKey] =
       await Promise.all([
         settingGet('default_sender', 'SMMSOFT'),
         settingGet('price_per_credit', '0.65'),
@@ -190,8 +192,11 @@ export default async function AdminPage({
         settingGet('welcome_credits', '0'),
         settingGet('payment_instructions', ''),
         settingGet('upstream_api_key', ''),
+        settingGet('upstream_provider', 'semaphore'),
+        settingGet('unisms_secret_key', ''),
       ]);
     const envKey = (process.env.SEMAPHORE_API_KEY ?? '').trim();
+    const envUnismsKey = (process.env.UNISMS_SECRET_KEY ?? '').trim();
     settingsInitial = {
       defaultSender,
       pricePerCredit,
@@ -200,8 +205,10 @@ export default async function AdminPage({
       costOtp,
       welcomeCredits,
       paymentInstructions,
-      // Boolean only — never the key, and never which source holds it.
+      // Booleans only — never the keys, and never which source holds them.
       upstreamConfigured: envKey !== '' || storedKey.trim() !== '',
+      upstreamProvider: upstreamProvider === 'unisms' ? 'unisms' : 'semaphore',
+      unismsConfigured: envUnismsKey !== '' || storedUnismsKey.trim() !== '',
     };
   }
 
@@ -243,7 +250,7 @@ export default async function AdminPage({
               <RadioTower aria-hidden="true" /> Upstream balance
             </div>
             <div className="v">{overview.upBal === null ? '—' : formatInt(overview.upBal)}</div>
-            <div className="s">your wholesale Semaphore credits</div>
+            <div className="s">your wholesale upstream credits</div>
           </div>
         </div>
       )}
@@ -397,7 +404,7 @@ export default async function AdminPage({
           </h2>
           <p className="hint">
             Every customer picks a sender name from this pool when sending — on the web pages
-            and through the API. A name only works once it is <b>approved on your Semaphore
+            and through the API. A name only works once it is <b>approved on your upstream
             account</b> (max 11 characters, letters and numbers) — adding it here does not
             approve it upstream, so add names here only after the upstream approval comes through.
           </p>
