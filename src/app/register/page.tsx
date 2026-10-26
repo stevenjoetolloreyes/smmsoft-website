@@ -10,7 +10,7 @@ export default async function RegisterPage() {
     <div className="login-wrap">
       <div className="login-box">
         <div className="brand">
-          <RadioTower aria-hidden="true" /> SMMSOFT
+          <RadioTower aria-hidden="true" /> SMS SOFT
         </div>
         <h1>Create your account</h1>
         <p className="hint">Send SMS from the web or through the API.</p>

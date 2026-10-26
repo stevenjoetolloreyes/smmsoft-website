@@ -20,7 +20,7 @@ export default async function LandingPage() {
     <div className="landing">
       <header className="land-nav">
         <div className="brand">
-          <RadioTower aria-hidden="true" /> SMMSOFT
+          <RadioTower aria-hidden="true" /> SMS SOFT
         </div>
         <div className="rowflex">
           <Link className="btn ghost small" href="/login">
@@ -95,7 +95,7 @@ export default async function LandingPage() {
       <section className="sect">
         <h2>What each message costs</h2>
         <p className="secsub">
-          Credits are the only currency inside SMMSOFT. Every send is charged per recipient, at the rates below — shown before
+          Credits are the only currency inside SMS SOFT. Every send is charged per recipient, at the rates below — shown before
           you send, never after.
         </p>
         <div className="tablewrap">
@@ -277,7 +277,7 @@ export default async function LandingPage() {
           </p>
         </div>
         <div className="faq">
-          <h3>Do I need to be a developer to use SMMSOFT?</h3>
+          <h3>Do I need to be a developer to use SMS SOFT?</h3>
           <p>No. The dashboard covers sending, bulk uploads, contacts, and history. The API is there only if you want to connect your own system.</p>
         </div>
       </section>
@@ -293,7 +293,7 @@ export default async function LandingPage() {
         </Link>
       </section>
 
-      <footer className="land-foot">SMMSOFT · SMS services for PH businesses · Globe · Smart · TNT · DITO · Sun supported</footer>
+      <footer className="land-foot">SMS SOFT · SMS services for PH businesses · Globe · Smart · TNT · DITO · Sun supported</footer>
     </div>
   );
 }

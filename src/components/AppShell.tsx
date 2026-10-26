@@ -83,7 +83,7 @@ export default async function AppShell({
       <aside className="sidebar" id="sidebar">
         <div className="brand-row">
           <div className="brand">
-            <RadioTower aria-hidden="true" /> SMMSOFT
+            <RadioTower aria-hidden="true" /> SMS SOFT
           </div>
           <SidebarToggle />
         </div>

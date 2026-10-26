@@ -10,10 +10,10 @@ export default async function LoginPage() {
     <div className="login-wrap">
       <div className="login-box">
         <div className="brand">
-          <RadioTower aria-hidden="true" /> SMMSOFT
+          <RadioTower aria-hidden="true" /> SMS SOFT
         </div>
         <h1>Login</h1>
-        <p className="hint">Welcome back to SMMSOFT.</p>
+        <p className="hint">Welcome back to SMS SOFT.</p>
         <LoginForm />
       </div>
     </div>
